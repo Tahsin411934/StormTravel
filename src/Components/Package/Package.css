@@ -1,0 +1,21 @@
+@keyframes moveUpDown {
+    0%, 100% { /* Changed to 100% for full loop */
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-60px);
+    }
+  }
+  
+  .animate-updown {
+    --animate-duration: 4s; /* Duration for one full cycle of animation */
+    animation: moveUpDown var(--animate-duration) ease-in-out infinite;
+  }
+  
+  .mySwiper {
+    width: 100%; /* Adjust as necessary */
+    padding: 20px; /* Add padding if needed */
+  }
+  
+  /* Additional custom styles can be added here */
+  

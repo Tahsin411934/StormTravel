@@ -4,16 +4,15 @@ import { useAuth } from '../../AuthProvider/AuthContext'; // Import the auth con
 import { FaUser } from 'react-icons/fa'; // Import the user icon
 
 const Navbar: React.FC = () => {
-  const { user, logOut } = useAuth(); // Get authentication status and logout function
+  const { user, logOut } = useAuth();
   const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [isDropdownOpen, setIsDropdownOpen] = useState<boolean>(false); // Dropdown state
   const location = useLocation();
 
   const links = [
     { to: '/', label: 'Home' },
-    { to: '/flight', label: 'Flight' },
-    { to: '/bus', label: 'Bus' },
+    { to: '/package', label: 'Package' },
     { to: '/shop', label: 'Shop' },
-    // { to: '/holiday', label: 'Holiday' },
     { to: '/faq-support', label: 'FAQ & Support' },
   ];
 
@@ -43,7 +42,7 @@ const Navbar: React.FC = () => {
   }, [isOpen]);
 
   const logoutUser = () => {
-    logOut(); // Call logout function
+    logOut();
   };
 
   return (
@@ -51,7 +50,7 @@ const Navbar: React.FC = () => {
       <nav className="bg-[#FFFFFF] px-4 py-2 font-Montserrat shadow-2xl">
         <div className="container lg:w-[85%] lg:gap-32 mx-auto flex items-center justify-between relative">
           <div className=" flex items-center font-GreatVibes justify-center italic text-[#1b82ff] text-xl font-bold">
-            <img src="logo.png" alt="Logo" className="h-10 w-10 " />
+            <img src="logo.png" alt="Logo" className="h-10 w-10" />
             <span className="text-3xl mt-2 font-semibold transform: skew(-10deg)">StormTravel</span>
           </div>
           <div className="md:hidden">
@@ -78,43 +77,68 @@ const Navbar: React.FC = () => {
                   to={link.to}
                   className={`py-2 px-2 rounded-md transition duration-300 
                     ${location.pathname === link.to
-                      ? 'text-yellow-700 '
-                      : 'text-gray-700 hover:bg-blue-200 '
+                      ? 'text-yellow-700'
+                      : 'text-gray-700 hover:bg-blue-200'
                     }`}
                 >
                   {link.label}
                 </Link>
               </li>
             ))}
+            {/* Dropdown for Flight */}
+            <div className="relative">
+              <button
+                onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+                className="py-2 px-2 rounded-md text-gray-700 hover:bg-blue-200 transition duration-300"
+              >
+                Bue Ticket
+              </button>
+              {isDropdownOpen && (
+                <ul className="absolute left-0 mt-2 w-48 bg-white shadow-lg rounded-lg z-10">
+                  <li>
+                    <Link to="/flight/domestic" className="block px-4 py-2 hover:bg-blue-100">
+                      Flight
+                    </Link>
+                  </li>
+                  <li>
+                    <Link to="/flight/international" className="block px-4 py-2 hover:bg-blue-100">
+                     Bus
+                    </Link>
+                  </li>
+                  <li>
+                    <Link to="/flight/international" className="block px-4 py-2 hover:bg-blue-100">
+                     Train
+                    </Link>
+                  </li>
+                </ul>
+              )}
+            </div>
           </div>
 
           {/* Conditionally render Login/Logout/Profile buttons */}
           <div className="hidden lg:flex flex-row-reverse gap-2 items-center space-x-4">
-            {user ? ( // Check if user is authenticated
+            {user ? (
               <>
                 <Link
                   to="/profile"
-                  className="flex items-center  text-gray-950 rounded-3xl px-3 py-2 text-sm font-semibold"
+                  className="flex items-center text-gray-950 rounded-3xl px-3 py-2 text-sm font-semibold"
                 >
-                  <FaUser className="mr-1" /> {/* Profile Icon */}
+                  <FaUser className="mr-1" />
                 </Link>
                 <button
-                  onClick={logoutUser} // Logout function
+                  onClick={logoutUser}
                   className="bg-blue-700 text-white rounded-3xl px-5 py-2 text-sm font-semibold"
                 >
                   Logout
                 </button>
               </>
             ) : (
-              <>
-                <Link
-                  to="/login"
-                  className="bg-blue-700 text-white rounded-3xl px-5 py-2 text-sm font-semibold"
-                >
-                  Login
-                </Link>
-                
-              </>
+              <Link
+                to="/login"
+                className="bg-blue-700 text-white rounded-3xl px-5 py-2 text-sm font-semibold"
+              >
+                Login
+              </Link>
             )}
           </div>
         </div>
@@ -137,34 +161,30 @@ const Navbar: React.FC = () => {
               {link.label}
             </NavLink>
           ))}
-
           {/* Mobile version of the Login/Logout/Profile buttons */}
           <div className="mt-4 space-y-2">
             {user ? (
               <>
                 <Link
                   to="/profile"
-                  className="block  text-white rounded-3xl px-5 py-2 text-sm font-semibold  items-center"
+                  className="block text-white rounded-3xl px-5 py-2 text-sm font-semibold items-center"
                 >
-                  <FaUser className="mr-1" /> 
+                  <FaUser className="mr-1" />
                 </Link>
                 <button
-                  onClick={logoutUser} // Logout function
+                  onClick={logoutUser}
                   className="block w-full bg-red-600 text-white rounded-3xl px-5 py-2 text-sm font-semibold"
                 >
                   Logout
                 </button>
               </>
             ) : (
-              <>
-                <Link
-                  to="/login"
-                  className="block bg-blue-700 text-white rounded-3xl px-5 py-2 text-sm font-semibold"
-                >
-                  Login
-                </Link>
-                
-              </>
+              <Link
+                to="/login"
+                className="block bg-blue-700 text-white rounded-3xl px-5 py-2 text-sm font-semibold"
+              >
+                Login
+              </Link>
             )}
           </div>
         </div>

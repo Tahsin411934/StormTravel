@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useAuth } from "../../AuthProvider/AuthContext";
 import { Link, useNavigate } from "react-router-dom";
-import axios from "axios";
+
+import axios, { AxiosError } from 'axios';
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
 
@@ -15,6 +16,7 @@ interface SignUpForm {
 
 const SignUp: React.FC = () => {
   const {
+   
     createUser,
     updateUserProfile,
     setUser,
@@ -51,6 +53,7 @@ const SignUp: React.FC = () => {
     setLoading(true);
 
     try {
+       setLoading(true);
       // Add phone number to data
       const signUpData = { ...data, mobileNumber: phone };
 
@@ -60,7 +63,7 @@ const SignUp: React.FC = () => {
       // Create user with email and password
       const userCredential = await createUser(data.email, data.password);
       const user = userCredential.user;
-
+      navigate("/"); 
       // Update user profile
       await updateUserProfile(data.name, "", phone);
       setUser({
@@ -70,7 +73,7 @@ const SignUp: React.FC = () => {
       });
 
       reset(); // Reset form after successful submission
-      navigate("/"); // Redirect to home or another page
+      // Redirect to home or another page
     } catch (error) {
       setPassError("Failed to create user. Try again.");
       console.error("Sign up error:", error);
@@ -78,19 +81,43 @@ const SignUp: React.FC = () => {
       setLoading(false);
     }
   };
+ // Import AxiosError
 
   const handleGoogleLogin = async () => {
-    setGoogleLoading(true);
-    try {
-      await googleLogin();
-      navigate("/");
-    } catch (error) {
-      setPassError("Google login failed. Try again.");
-      console.error("Google login error:", error);
-    } finally {
-      setGoogleLoading(false);
-    }
+      setGoogleLoading(true);
+      try {
+          const user = await googleLogin(); // Capture the user data
+          console.log("Logged-in user:", user?.user?.displayName);
+  
+          // Attempt to register the user
+          const response = await axios.post("http://localhost:5000/api/users/register", {
+              name: user?.user?.displayName,
+              email: user?.user?.email,
+              password: '12345' // Default password or handle it as needed
+          });
+  
+          // If registration is successful (201)
+          navigate("/"); // Navigate to home after successful registration
+  
+      } catch (error) {
+          const axiosError = error as AxiosError; // Assert the type
+  
+          if (axiosError.response && axiosError.response.status === 400) {
+              // User already exists, log them in
+              console.log("User already exists, logging in...");
+              navigate("/"); // Navigate to home since user is considered logged in
+          } else {
+              setPassError("Google login failed. Try again.");
+              console.error("Google login error:", axiosError);
+          }
+      } finally {
+          setGoogleLoading(false);
+      }
   };
+  
+
+
+ 
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen font-Poppins p-6 bg-gray-100">

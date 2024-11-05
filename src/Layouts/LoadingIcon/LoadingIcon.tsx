@@ -10,7 +10,7 @@ const LoadingIcon: React.FC = () => {
           </div>
         </div>
       </div>
-      <h1 className="mt-5 text-white text-5xl font-Prata tracking-widest">ShareTrip</h1>
+      <h1 className="mt-5 text-white text-5xl font-GreatVibes tracking-widest">StormTravel</h1>
     </div>
   );
 };
