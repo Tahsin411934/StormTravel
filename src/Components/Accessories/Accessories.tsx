@@ -19,14 +19,14 @@ export const Accessories: React.FC = () => {
   console.log(data);
 
   return (
-    <div className='font-Poppins w-[90%] mx-auto'>
+    <div className='font-Poppins w-[90%] mx-auto pt-20'>
       <div className='font-Poppins font-bold text-3xl'>
         <h1>Travel Accessories</h1>
       </div>
-      <div className='grid grid-cols-3 gap-5 relative'>
+      <div className='grid grid-cols-3 gap-5 relative '>
         {data?.slice(0,6).map((item, index) => (
           <div key={index}>
-            <div className=" card bg-base-100 shadow-xl">
+            <div className="hover:bg-green-100 card bg-base-100 shadow-xl">
               <figure>
                 <img
                   src={item.imgUrl}

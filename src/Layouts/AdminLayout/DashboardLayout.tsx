@@ -9,6 +9,7 @@ const DashboardLayout: React.FC = () => {
         <Sidebar></Sidebar>
       </div>
       <div className='col-span-10 '>
+        <div className='w-full h-16 shadow'></div>
         <Outlet></Outlet>
       </div>
     </div>

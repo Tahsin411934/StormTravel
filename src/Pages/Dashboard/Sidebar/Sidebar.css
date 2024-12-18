@@ -2,3 +2,34 @@
     background-color: #1C9FE1;
     color: black;
   }
+  /* Sidebar Styles */
+.sidebar-container {
+  background-color: #1e2a3a;
+}
+
+.sidebar-container a {
+  transition: all 0.3s ease;
+}
+
+.sidebar-container a:hover {
+  background-color: #1C9FE1;
+  color: white;
+}
+
+.sidebar-container .active {
+  background-color: #1C9FE1;
+  color: white;
+}
+
+.sidebar-container .hover\:bg-\[#1C9FE1\]:hover {
+  background-color: #1C9FE1;
+}
+
+.sidebar-container .hover\:text-white:hover {
+  color: white;
+}
+/* Sidebar Icon and Dropdown Rotation */
+.sidebar-container .rotate-180 {
+  transform: rotate(180deg);
+  transition: transform 0.3s ease;
+}

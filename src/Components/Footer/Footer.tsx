@@ -6,12 +6,10 @@ const Footer = () => {
       <footer className="px-4 divide-y bg-slate-200  dark:text-gray-800">
 	<div className="container flex flex-col justify-between py-10 mx-auto space-y-8 lg:flex-row lg:space-y-0">
 		<div className="lg:w-1/3">
-			<a rel="noopener noreferrer" href="#" className="flex justify-center space-x-3 lg:justify-start">
-				<div className="flex items-center justify-center  rounded-full dark:bg-violet-600">
-					<img src="logo-removebg-preview.png" alt="" />
-				</div>
-				
-			</a>
+		<div className=" flex pt-10 items-center font-GreatVibes justify-center italic text-[#1b82ff] text-xl font-bold">
+            <img src="logo.png" alt="Logo" className="h-10 w-10" />
+            <span className="text-3xl mt-2 font-semibold transform: skew(-10deg)">StormTravel</span>
+          </div>
 		</div>
 		<div className="grid grid-cols-2 text-sm gap-x-3 gap-y-8 lg:w-2/3 sm:grid-cols-4">
 			<div className="space-y-3">

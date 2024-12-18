@@ -19,6 +19,8 @@ import Bus from "./Pages/SearchResult/Bus";
 import PackageForm from "./Pages/PackageForm/PackageForm";
 import PackageDetails from './Pages/PackageDetails/PackageDetails';
 import AccessoriesForm from "./Pages/Dashboard/AccessoriesForm/AccessoriesForm";
+import AddTourGuider from "./Pages/Dashboard/AddTourGider/AddTourGuider";
+import Packages from "./Pages/Packages/Packages";
 
 const router = createBrowserRouter([
   {
@@ -40,6 +42,10 @@ const router = createBrowserRouter([
       {
         path: "/busSearchResult",
         element: <Bus></Bus>,
+      },
+      {
+        path: "/packages",
+        element: <Packages></Packages> ,
       },
       {
         path: "/package/:id",
@@ -93,6 +99,10 @@ const router = createBrowserRouter([
       {
         path: "/dashboard/AddAccessries",
         element: <AccessoriesForm />,
+      },
+      {
+        path: "/dashboard/AddTourGuider",
+        element: <AddTourGuider/> ,
       },
     ],
   },
