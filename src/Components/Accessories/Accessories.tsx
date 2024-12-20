@@ -1,11 +1,14 @@
 import React from 'react';
 import { useFetchData } from '../../Hook/useFeatchData';
 import { FaBangladeshiTakaSign } from 'react-icons/fa6';
+import { Link } from 'react-router-dom';
 
 interface AccessoryItem {
+  _id: string;
   productName: string;
   imgUrl: string;
   available: string;
+  category: string;
   price:  number;
   finalPrice:  number;
   discount:  number;
@@ -19,6 +22,7 @@ export const Accessories: React.FC = () => {
   console.log(data);
 
   return (
+    
     <div className='font-Poppins w-[90%] mx-auto pt-20'>
       <div className='font-Poppins font-bold text-3xl'>
         <h1>Travel Accessories</h1>
@@ -26,6 +30,7 @@ export const Accessories: React.FC = () => {
       <div className='grid grid-cols-3 gap-5 relative '>
         {data?.slice(0,6).map((item, index) => (
           <div key={index}>
+           <Link to={`/Accessories/${item._id}/${item.category}`}>
             <div className="hover:bg-green-100 card bg-base-100 shadow-xl">
               <figure>
                 <img
@@ -50,6 +55,7 @@ export const Accessories: React.FC = () => {
                 </div>
               </div>
             </div>
+            </Link>
           </div>
         ))}
       </div>

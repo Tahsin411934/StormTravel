@@ -21,6 +21,7 @@ import PackageDetails from './Pages/PackageDetails/PackageDetails';
 import AccessoriesForm from "./Pages/Dashboard/AccessoriesForm/AccessoriesForm";
 import AddTourGuider from "./Pages/Dashboard/AddTourGider/AddTourGuider";
 import Packages from "./Pages/Packages/Packages";
+import { AccessoriesDetails } from "./Pages/AccessoriesDetails/AccessoriesDetails";
 
 const router = createBrowserRouter([
   {
@@ -50,6 +51,10 @@ const router = createBrowserRouter([
       {
         path: "/package/:id",
         element: <PackageDetails></PackageDetails>,
+      },
+      {
+        path: "/Accessories/:id/:catagory",
+        element: <AccessoriesDetails/> ,
       },
       {
         path: "/profile",

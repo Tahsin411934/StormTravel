@@ -29,7 +29,7 @@ const PackageComponent: React.FC = () => {
           return (
             <div
               key={packageItem._id}
-              className="relative bg-white shadow-lg rounded-xl overflow-hidden transform hover:scale-101 transition-transform duration-300"
+              className="relative bg-white shadow-lg hover:bg-green-100 rounded-xl overflow-hidden transform hover:scale-101 transition-transform duration-300"
             >
               <div className="w-full h-[200px] relative overflow-hidden">
                 <img
@@ -39,15 +39,15 @@ const PackageComponent: React.FC = () => {
                 />
               </div>
               <div className="p-6 space-y-4">
-                <h1 className="text-2xl font-semibold text-gray-800 hover:text-blue-600 transition-colors duration-200">
+                <h1 className="text-xl font-semibold text-gray-800 hover:text-blue-900 transition-colors duration-200">
                   {packageItem.name}
                 </h1>
 
                 {/* Display Duration */}
-                <p className="text-sm text-gray-600">{packageItem.duration}</p>
+                <p className="text-sm text-gray-600">Duration: {packageItem.duration}</p>
 
                 <div className="flex items-center justify-between mt-4">
-                  <div className="text-2xl font-bold text-blue-600">
+                  <div className="text-2xl font-bold text-blue-950">
                     {packageItem.discount}% Off
                   </div>
                   <div className="text-lg font-medium text-gray-500 line-through">
@@ -60,7 +60,7 @@ const PackageComponent: React.FC = () => {
 
                 <Link
                   to={`/package/${packageItem._id}`}
-                  className="block text-center text-blue-500 font-semibold hover:underline mt-4 transition-colors duration-200"
+                  className="block bg-blue-950 text-center text-blue-100 font-semibold hover:underline mt-4 transition-colors duration-200"
                 >
                   View Details
                 </Link>
