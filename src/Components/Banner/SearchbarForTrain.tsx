@@ -2,7 +2,7 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import { GoArrowSwitch } from "react-icons/go";
 import { MdOutlineUpdate } from "react-icons/md";
-import {  useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 
 type FormData = {
   from: string;
@@ -14,7 +14,7 @@ type FormData = {
   selectedClass: string;
 };
 
-const SearchBarForBus: React.FC = () => {
+const SearchBarForTrain: React.FC = () => {
   const { register, handleSubmit, watch } = useForm<FormData>({
     defaultValues: {
       tripType: "oneway", // Set default trip type to "oneway"
@@ -31,7 +31,7 @@ const SearchBarForBus: React.FC = () => {
     const departureTime = data?.departureDate || null;
     const returnDate = data?.returnDate || null;
   console.log(from)
-    navigate(`/flightSearchResult?from=${from}&to=${to}&departureTime=${departureTime}&returnDate=${returnDate}&travelers=${data.travelers}&class=${data.selectedClass}`);
+    navigate(`/trainSearchResult?from=${from}&to=${to}&departureTime=${departureTime}&returnDate=${returnDate}&travelers=${data.travelers}&class=${data.selectedClass}`);
   };
   
 
@@ -79,9 +79,10 @@ const SearchBarForBus: React.FC = () => {
               {...register("selectedClass")}
               className="border text-blue-800 font-semibold border-blue-100 p-2 rounded w-full"
             >
-              <option value="ac">Economy Class</option>
-              <option value="non-ac">Premium Economy</option>
-              <option value="non-ac">First Class</option>
+              <option value="ac">Local Train</option>
+              <option value="non-ac">High-Speed Train</option>
+              <option value="ac">Superfast Train</option>
+              <option value="non-ac">Tourist Train</option>
             </select>
           </div>
 
@@ -163,4 +164,4 @@ const SearchBarForBus: React.FC = () => {
   );
 };
 
-export default SearchBarForBus;
+export default SearchBarForTrain;

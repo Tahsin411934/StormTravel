@@ -2,17 +2,17 @@ import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { axiosSecure } from "../../Hook/useAxiouSecure";
 
-const busNames = [
-    "Green Line",
-    "Shyamoli Paribahan",
-    "Ena Transport",
-    "Hanif Enterprise",
-    "Desh Travels"
+const trainNames = [
+    "Parabat Express",
+    "Sonar Bangla Express",
+    "Maitree Express",
+    "Jamuna Express",
+    "Silk City Express"
 ];
 
-const busClasses = ["Economy", "Business", "VIP"];
+const trainClasses = ["Local Train", "High-Speed Train", "Tourist Train", "Express Train"];
 
-const Bus: React.FC = () => {
+const Train: React.FC = () => {
     const location = useLocation();
     const queryParams = new URLSearchParams(location.search);
 
@@ -28,8 +28,8 @@ const Bus: React.FC = () => {
     const [error, setError] = useState<string | null>(null);
     const [returnError, setReturnError] = useState<string | null>(null);
 
-    const [selectedBusName, setSelectedBusName] = useState("");
-    const [selectedBusClass, setSelectedBusClass] = useState("");
+    const [selectedTrainName, setSelectedTrainName] = useState("");
+    const [selectedTrainClass, setSelectedTrainClass] = useState("");
 
     const [showMoreDeparture, setShowMoreDeparture] = useState(false);
     const [showMoreReturn, setShowMoreReturn] = useState(false);
@@ -38,10 +38,10 @@ const Bus: React.FC = () => {
         const fetchDepartureData = async () => {
             try {
                 const res = await axiosSecure.get(
-                    `/api/bus-schedule/by-date?date=${departureTime}&from=${from}&to=${to}`
+                    `/api/train-schedule/by-date?date=${departureTime}&from=${from}&to=${to}`
                 );
                 res.status === 400
-                    ? setError("Bus not found")
+                    ? setError("Train not found")
                     : setDepartureData(res.data);
             } catch (err) {
                 setError(
@@ -59,10 +59,10 @@ const Bus: React.FC = () => {
             const fetchReturnData = async () => {
                 try {
                     const res = await axiosSecure.get(
-                        `/api/bus-schedule/by-date?date=${returnDate}&from=${to}&to=${from}`
+                        `/api/train-schedule/by-date?date=${returnDate}&from=${to}&to=${from}`
                     );
                     res.status === 400
-                        ? setReturnError("Bus not found")
+                        ? setReturnError("Train not found")
                         : setReturnData(res.data);
                 } catch (err) {
                     setReturnError(
@@ -79,32 +79,28 @@ const Bus: React.FC = () => {
     }, [returnDate, to, from]);
 
     const filteredDepartureData = departureData.filter(
-        (bus) =>
-            (selectedBusName ? bus.busName === selectedBusName : true) &&
-            (selectedBusClass ? bus.class === selectedBusClass : true)
+        (train) =>
+            (selectedTrainName ? train.trainName === selectedTrainName : true) &&
+            (selectedTrainClass ? train.class === selectedTrainClass : true)
     );
 
     const filteredReturnData = returnData.filter(
-        (bus) =>
-            (selectedBusName ? bus.busName === selectedBusName : true) &&
-            (selectedBusClass ? bus.class === selectedBusClass : true)
+        (train) =>
+            (selectedTrainName ? train.trainName === selectedTrainName : true) &&
+            (selectedTrainClass ? train.class === selectedTrainClass : true)
     );
 
-    const renderBusCard = (bus: any) => (
+    const renderTrainCard = (train: any) => (
         <div
-            key={bus.busNumber}
-            className="bg-gradient-to-r font-Poppins from-green-50 to-green-100 shadow-lg rounded-lg p-4 flex flex-col md:flex-row items-center justify-between hover:shadow-2xl "
+            key={train.trainNumber}
+            className="bg-gradient-to-r font-Poppins from-green-50 to-green-100 shadow-lg rounded-lg p-4 flex flex-col md:flex-row items-center justify-between hover:shadow-2xl"
         >
             <div className="space-y-2 md:space-y-0 md:space-x-4 flex flex-col md:flex-row gap-20 items-start md:items-center">
                 <div>
-                    <div className="text-green-900 text-lg font-bold">
-                        {bus.busName}
-                    </div>
-                    <div className="text-green-600 text-lg font-bold">
-                        {bus.class}
-                    </div>
+                    <div className="text-green-900 text-lg font-bold">{train.trainName}</div>
+                    <div className="text-green-600 text-lg font-bold">{train.class}</div>
                     <div className="text-gray-600 text-sm">
-                        Bus Number: <span className="font-medium">{bus.busNumber}</span>
+                        Train Number: <span className="font-medium">{train.trainNumber}</span>
                     </div>
                 </div>
 
@@ -116,25 +112,25 @@ const Bus: React.FC = () => {
                 </div>
 
                 <div className="text-gray-600 text-sm">
-                    <span className="font-semibold">Seats Available:</span> {bus.seatsAvailable}
+                    <span className="font-semibold">Seats Available:</span> {train.seatsAvailable}
                 </div>
             </div>
             <div className="mt-4 md:mt-0 text-right">
                 <p className="text-gray-600 text-sm">
                     <span className="font-semibold">Departure:</span>{" "}
-                    {new Date(bus.departureTime).toLocaleTimeString([], {
+                    {new Date(train.departureTime).toLocaleTimeString([], {
                         hour: "2-digit",
                         minute: "2-digit",
                     })}
                 </p>
                 <p className="text-gray-600 text-sm">
                     <span className="font-semibold">Arrival:</span>{" "}
-                    {new Date(bus.arrivalTime).toLocaleTimeString([], {
+                    {new Date(train.arrivalTime).toLocaleTimeString([], {
                         hour: "2-digit",
                         minute: "2-digit",
                     })}
                 </p>
-                <p className="text-green-950 font-semibold text-xl mt-2">Price: ${bus.price}</p>
+                <p className="text-green-950 font-semibold text-xl mt-2">Price: ${train.price}</p>
                 <button className="w-full bg-green-950 text-white font-semibold py-2 rounded-lg hover:bg-green-700 mt-2">
                     Book Now
                 </button>
@@ -153,16 +149,16 @@ const Bus: React.FC = () => {
                 <hr />
                 <div className="space-y-4">
                     <div className="flex flex-col space-y-2">
-                        <p className="font-semibold">BUS NAME:</p>
-                        {busNames.map((name) => (
+                        <p className="font-semibold">TRAIN NAME:</p>
+                        {trainNames.map((name) => (
                             <label key={name} className="inline-flex items-center">
                                 <input
                                     type="radio"
-                                    name="busName"
+                                    name="trainName"
                                     value={name}
                                     className="form-radio text-green-500"
-                                    checked={selectedBusName === name}
-                                    onChange={() => setSelectedBusName(name)}
+                                    checked={selectedTrainName === name}
+                                    onChange={() => setSelectedTrainName(name)}
                                 />
                                 <span className="ml-2">{name}</span>
                             </label>
@@ -170,27 +166,27 @@ const Bus: React.FC = () => {
                         <label className="inline-flex items-center mt-2">
                             <input
                                 type="radio"
-                                name="busName"
+                                name="trainName"
                                 value=""
                                 className="form-radio text-green-500"
-                                checked={selectedBusName === ""}
-                                onChange={() => setSelectedBusName("")}
+                                checked={selectedTrainName === ""}
+                                onChange={() => setSelectedTrainName("")}
                             />
-                            <span className="ml-2">All Buses</span>
+                            <span className="ml-2">All Trains</span>
                         </label>
                     </div>
-<hr />
+                    <hr />
                     <div className="flex flex-col space-y-2">
-                        <p className="font-semibold">BUS CLASS:</p>
-                        {busClasses.map((className) => (
+                        <p className="font-semibold">TRAIN CLASS:</p>
+                        {trainClasses.map((className) => (
                             <label key={className} className="inline-flex items-center">
                                 <input
                                     type="radio"
                                     name="class"
                                     value={className}
                                     className="form-radio text-green-500"
-                                    checked={selectedBusClass === className}
-                                    onChange={() => setSelectedBusClass(className)}
+                                    checked={selectedTrainClass === className}
+                                    onChange={() => setSelectedTrainClass(className)}
                                 />
                                 <span className="ml-2">{className}</span>
                             </label>
@@ -201,24 +197,24 @@ const Bus: React.FC = () => {
                                 name="class"
                                 value=""
                                 className="form-radio text-green-500"
-                                checked={selectedBusClass === ""}
-                                onChange={() => setSelectedBusClass("")}
+                                checked={selectedTrainClass === ""}
+                                onChange={() => setSelectedTrainClass("")}
                             />
                             <span className="ml-2">All Classes</span>
                         </label>
                     </div>
                 </div>
             </div>
-           
+
             <div className="col-span-12 md:col-span-9 lg:col-span-10 py-5">
                 {/* Departure Data */}
                 <div className="mb-10">
-                    <h3 className="text-xl font-Montserrat font-semibold mb-6">Departure Bus Schedule</h3>
+                    <h3 className="text-xl font-Montserrat font-semibold mb-6">Departure Train Schedule</h3>
                     {isLoading ? (
                         <div>Loading...</div>
                     ) : filteredDepartureData.length > 0 ? (
                         <div className="space-y-4">
-                            {filteredDepartureData.slice(0, showMoreDeparture ? filteredDepartureData.length : 5).map(renderBusCard)}
+                            {filteredDepartureData.slice(0, showMoreDeparture ? filteredDepartureData.length : 5).map(renderTrainCard)}
                             <button
                                 onClick={handleShowMoreDeparture}
                                 className="mt-4 text-green-600 font-semibold"
@@ -234,12 +230,12 @@ const Bus: React.FC = () => {
                 {/* Return Data */}
                 {returnDate && (
                     <div>
-                        <h3 className="text-xl font-Montserrat font-semibold mb-6 pt-5">Return Bus Schedule</h3>
+                        <h3 className="text-xl font-Montserrat font-semibold mb-6 pt-5">Return Train Schedule</h3>
                         {isReturnLoading ? (
                             <div>Loading...</div>
                         ) : filteredReturnData.length > 0 ? (
                             <div className="space-y-4">
-                                {filteredReturnData.slice(0, showMoreReturn ? filteredReturnData.length : 5).map(renderBusCard)}
+                                {filteredReturnData.slice(0, showMoreReturn ? filteredReturnData.length : 5).map(renderTrainCard)}
                                 <button
                                     onClick={handleShowMoreReturn}
                                     className="mt-4 text-green-600 font-semibold"
@@ -257,4 +253,4 @@ const Bus: React.FC = () => {
     );
 };
 
-export default Bus;
+export default Train;

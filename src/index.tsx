@@ -16,12 +16,16 @@ import DashboardLayout from "./Layouts/AdminLayout/DashboardLayout";
 import Dashboard from "./Pages/Dashboard/DashBoard/Dashboard";
 import AddBusSchedule from "./Pages/Dashboard/AddBusSchedule/AddBusSchedule";
 import Bus from "./Pages/SearchResult/Bus";
+
 import PackageForm from "./Pages/PackageForm/PackageForm";
 import PackageDetails from './Pages/PackageDetails/PackageDetails';
 import AccessoriesForm from "./Pages/Dashboard/AccessoriesForm/AccessoriesForm";
 import AddTourGuider from "./Pages/Dashboard/AddTourGider/AddTourGuider";
 import Packages from "./Pages/Packages/Packages";
 import { AccessoriesDetails } from "./Pages/AccessoriesDetails/AccessoriesDetails";
+import Flight from "./Pages/SearchResult/Flight";
+import Train from "./Pages/SearchResult/Train";
+import TourGuideDetails from "./Pages/TourGuideDetails/TourGuideDetails";
 
 const router = createBrowserRouter([
   {
@@ -45,6 +49,14 @@ const router = createBrowserRouter([
         element: <Bus></Bus>,
       },
       {
+        path: "/flightSearchResult",
+        element: <Flight/>,
+      },
+      {
+        path: "/trainSearchResult",
+        element: <Train/>,
+      },
+      {
         path: "/packages",
         element: <Packages></Packages> ,
       },
@@ -55,6 +67,10 @@ const router = createBrowserRouter([
       {
         path: "/Accessories/:id/:catagory",
         element: <AccessoriesDetails/> ,
+      },
+      {
+        path: "/guider/:id",
+        element: <TourGuideDetails/> ,
       },
       {
         path: "/profile",

@@ -1,6 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import React from 'react';
 import { useTourGider } from '../../utils/useTourGider';
+import { Link } from 'react-router-dom';
 
 interface Guide {
   _id: string;
@@ -26,10 +27,12 @@ export const TourGuider: React.FC = () => {
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 p-6">
         {data?.slice(0,4).map((guide) => (
+          <Link to={`/guider/${guide._id}`}>
           <div
             key={guide._id}
             className="flex flex-col items-center p-6 bg-white border border-gray-300 rounded-lg shadow-xl hover:shadow-2xl transition-shadow transform hover:scale-105"
           >
+
             <img
               src={guide.image}
               alt={guide.name}
@@ -42,6 +45,7 @@ export const TourGuider: React.FC = () => {
              {guide.experience}
             </p>
           </div>
+          </Link>
         ))}
       </div>
     </div>

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { MdFlight, MdLocalTaxi, MdTrain } from "react-icons/md"; // Import icons from react-icons
 import SearchbarForFlight from "./SearchbarForFlight";
 import SearchbarForBus from "./SearchbarForBus";
+import SearchBarForTrain from "./SearchbarForTrain";
 
 const Banner = () => {
   const [activeTab, setActiveTab] = useState("flight"); // State to track the active tab
@@ -67,7 +68,7 @@ const Banner = () => {
         {/* Render the active search bar based on the selected tab */}
         {activeTab === "flight" && <SearchbarForFlight />}
         {activeTab === "bus" && <SearchbarForBus />}
-        {activeTab === "train" && <div>Train Search Bar (not implemented)</div>}
+        {activeTab === "train" && <div><SearchBarForTrain/></div>}
       </div>
     </div>
   );
