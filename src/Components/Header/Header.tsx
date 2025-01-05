@@ -2,22 +2,28 @@ import React, { useState, useEffect } from 'react';
 import { Link, NavLink, useLocation } from 'react-router-dom';
 import { useAuth } from '../../AuthProvider/AuthContext'; // Import the auth context for user authentication status
 import { FaUser } from 'react-icons/fa'; // Import the user icon
+import { Cart } from '../Cart/Cart';
+
 
 const Navbar: React.FC = () => {
   const { user, logOut } = useAuth();
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState<boolean>(false); // Dropdown state
+  const [isCartModalOpen, setCartModalOpen] = useState(false);
   const location = useLocation();
 
   const links = [
     { to: '/', label: 'Home' },
     { to: '/packages', label: 'Package' },
     { to: '/shop', label: 'Shop' },
-    { to: '/faq-support', label: 'FAQ & Support' },
+    { to: '/buy-ticket', label: 'Buy Ticket' },
   ];
 
   const toggleSidebar = () => {
     setIsOpen((prev) => !prev);
+  };
+  const toggleCartModal = () => {
+    setCartModalOpen(!isCartModalOpen);
   };
 
   useEffect(() => {
@@ -85,47 +91,21 @@ const Navbar: React.FC = () => {
                 </Link>
               </li>
             ))}
-            {/* Dropdown for Flight */}
-            <div className="relative">
-              <button
-                onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-                className="py-2 px-2 rounded-md text-gray-700 hover:bg-blue-200 transition duration-300"
-              >
-                Bue Ticket
-              </button>
-              {isDropdownOpen && (
-                <ul className="absolute left-0 mt-2 w-48 bg-white shadow-lg rounded-lg z-10">
-                  <li>
-                    <Link to="/flight/domestic" className="block px-4 py-2 hover:bg-blue-100">
-                      Flight
-                    </Link>
-                  </li>
-                  <li>
-                    <Link to="/flight/international" className="block px-4 py-2 hover:bg-blue-100">
-                      Bus
-                    </Link>
-                  </li>
-                  <li>
-                    <Link to="/flight/international" className="block px-4 py-2 hover:bg-blue-100">
-                      Train
-                    </Link>
-                  </li>
-                </ul>
-              )}
-            </div>
+
           </div>
 
           {/* Conditionally render Login/Logout/Profile buttons */}
           <div className="hidden lg:flex flex-row-reverse gap-2 items-center space-x-4">
             {user ? (
               <>
+
                 <div className="dropdown dropdown-hover">
                   <div tabIndex={0} role="button" className="btn m-1"><FaUser className="mr-1" /></div>
                   <ul tabIndex={0} className="dropdown-content menu bg-base-100 rounded-box z-[1] w-[170px] p-2 shadow">
                     <div className="flex flex-col h-full p-3 w-[11rem] dark:bg-gray-50 dark:text-gray-800">
                       <div className="space-y-3">
 
-                        
+
                         <div className="flex-1">
                           <ul className="pt-2 pb-4 text-sm">
                             <li className="rounded-sm">
@@ -180,6 +160,7 @@ const Navbar: React.FC = () => {
                                 <span>Settings</span>
                               </a>
                             </li>
+
                             <li className="rounded-sm">
                               <a rel="noopener noreferrer" href="#" className="flex items-center p-2 space-x-3 rounded-md">
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" className="w-5 h-5 fill-current dark:text-gray-600">
@@ -189,10 +170,13 @@ const Navbar: React.FC = () => {
                                 <span>Logout</span>
                               </a>
                             </li>
+                            <li>
+
+                            </li>
                           </ul>
                         </div>
                       </div>
-                     
+
                     </div>
                   </ul>
                 </div>
@@ -202,17 +186,30 @@ const Navbar: React.FC = () => {
                 >
                   Logout
                 </button>
+
               </>
             ) : (
               <Link
                 to="/login"
-                className="bg-blue-700 text-white rounded-3xl px-5 py-2 text-sm font-semibold"
+                className="bg-blue-700 ml-5 text-white rounded-3xl px-5 py-2 text-sm font-semibold"
               >
                 Login
               </Link>
             )}
+            <button
+              onClick={toggleCartModal}
+              className="relative flex items-center justify-center p-3  rounded-full hover:bg-gray-600"
+            >
+              🛒
+              {/* Badge showing the number of items in the cart */}
+              <span className="absolute top-0 right-0 bg-red-500 text-white text-xs w-5 h-5 rounded-full flex items-center justify-center">
+                {JSON.parse(localStorage.getItem("cart") || "[]").length}
+              </span>
+            </button>
           </div>
+
         </div>
+
       </nav>
 
       {/* Sidebar for mobile */}
@@ -260,6 +257,7 @@ const Navbar: React.FC = () => {
           </div>
         </div>
       </div>
+      {isCartModalOpen && <Cart toggleModal={toggleCartModal} />}
     </div>
   );
 };

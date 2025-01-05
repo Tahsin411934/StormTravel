@@ -12,6 +12,7 @@ interface PackageDetails {
   features: string;
   isActive: boolean;
   image: string;
+  discountImage: string;
 }
 
 const PackageForm: React.FC = () => {
@@ -31,39 +32,39 @@ const PackageForm: React.FC = () => {
     try {
       const res = await axiosSecure.post("http://localhost:5000/api/package", packageData);
       if (res.status === 200) {
-          Swal.fire({
-              icon: "success",
-              title: "Success!",
-              text: "Package added successfully.",
-              confirmButtonText: "OK",
-          });
-          reset();
-          setIsActive(true);
+        Swal.fire({
+          icon: "success",
+          title: "Success!",
+          text: "Package added successfully.",
+          confirmButtonText: "OK",
+        });
+        reset();
+        setIsActive(true);
       }
-  } catch (error: any) {
+    } catch (error: any) {
       console.log("Error Response:", error.response);
-  
+
       // Check for a 400 status and handle the duplicate package error
       if (error.response && error.response.status === 400) {
-          const errorMessage = error.response.data.msg || "Unknown error occurred.";
-          
-          Swal.fire({
-              icon: "error",
-              title: "Duplicate package name:",
-              text: errorMessage,
-              confirmButtonText: "OK",
-          });
+        const errorMessage = error.response.data.msg || "Unknown error occurred.";
+
+        Swal.fire({
+          icon: "error",
+          title: "Duplicate package name:",
+          text: errorMessage,
+          confirmButtonText: "OK",
+        });
       } else {
-          Swal.fire({
-              icon: "error",
-              title: "Oops...",
-              text: "Something went wrong. Please try again.",
-              confirmButtonText: "OK",
-          });
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "Something went wrong. Please try again.",
+          confirmButtonText: "OK",
+        });
       }
       console.error("Error adding package:", error);
-  }
-  
+    }
+
   };
 
   return (
@@ -127,20 +128,34 @@ const PackageForm: React.FC = () => {
             {errors.duration && <p className="text-red-500">{errors.duration.message}</p>}
           </div>
 
-          
+
         </div>
+
         <div className="form-control w-full">
-            <label className="label">
-              <span className="label-text">Image URL</span>
-            </label>
-            <input
-              type="text"
-              placeholder="Image URL"
-              className="input input-bordered w-full px-4 py-2"
-              {...register("image", { required: "Image URL is required" })}
-            />
-            {errors.image && <p className="text-red-500">{errors.image.message}</p>}
-          </div>
+          <label className="label">
+            <span className="label-text">Image URL</span>
+          </label>
+          <input
+            type="text"
+            placeholder="Image URL"
+            className="input input-bordered w-full px-4 py-2"
+            {...register("image", { required: "Image URL is required" })}
+          />
+          {errors.image && <p className="text-red-500">{errors.image.message}</p>}
+        </div>
+
+        <div className="form-control w-full">
+          <label className="label">
+            <span className="label-text">Discount Image URL</span>
+          </label>
+          <input
+            type="text"
+            placeholder="Image URL"
+            className="input input-bordered w-full px-4 py-2"
+            {...register("discountImage", { required: "discountImage URL is required" })}
+          />
+          {errors.discountImage && <p className="text-red-500">{errors.discountImage.message}</p>}
+        </div>
         <div className="form-control w-full mb-6">
           <label className="label">
             <span className="label-text">Features (comma-separated)</span>

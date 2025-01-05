@@ -1,16 +1,20 @@
 import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { axiosSecure } from "../../Hook/useAxiouSecure";
+import SearchBarForBus from "../../Components/Banner/SearchbarForFlight";
+import SearchBarForTrain from "../../Components/Banner/SearchbarForTrain";
+import BuyTicket from "../../Components/Searchbar/BuyTicket";
 
 const busNames = [
     "Green Line",
     "Shyamoli Paribahan",
     "Ena Transport",
     "Hanif Enterprise",
-    "Desh Travels"
+    "Desh Travels",
+    "City Rider"
 ];
 
-const busClasses = ["Economy", "Business", "VIP"];
+const busClasses = ["AC", "Non AC", "VIP"];
 
 const Bus: React.FC = () => {
     const location = useLocation();
@@ -35,6 +39,10 @@ const Bus: React.FC = () => {
     const [showMoreReturn, setShowMoreReturn] = useState(false);
 
     useEffect(() => {
+        setDepartureData([]);
+        setReturnData([]);
+        setError(null);
+        setReturnError(null);
         const fetchDepartureData = async () => {
             try {
                 const res = await axiosSecure.get(
@@ -91,53 +99,56 @@ const Bus: React.FC = () => {
     );
 
     const renderBusCard = (bus: any) => (
-        <div
-            key={bus.busNumber}
-            className="bg-gradient-to-r font-Poppins from-green-50 to-green-100 shadow-lg rounded-lg p-4 flex flex-col md:flex-row items-center justify-between hover:shadow-2xl "
-        >
-            <div className="space-y-2 md:space-y-0 md:space-x-4 flex flex-col md:flex-row gap-20 items-start md:items-center">
-                <div>
-                    <div className="text-green-900 text-lg font-bold">
-                        {bus.busName}
+        <div>
+
+            <div
+                key={bus.busNumber}
+                className="bg-gradient-to-r font-Poppins from-green-50 to-green-100 shadow-lg rounded-lg p-4 flex flex-col md:flex-row items-center justify-between hover:shadow-2xl "
+            >
+                <div className="space-y-2 md:space-y-0 md:space-x-4 flex flex-col md:flex-row gap-20 items-start md:items-center">
+                    <div>
+                        <div className="text-green-900 text-lg font-bold">
+                            {bus.busName}
+                        </div>
+                        <div className="text-green-600 text-lg font-bold">
+                            {bus.class}
+                        </div>
+                        <div className="text-gray-600 text-sm">
+                            Bus Number: <span className="font-medium">{bus.busNumber}</span>
+                        </div>
                     </div>
-                    <div className="text-green-600 text-lg font-bold">
-                        {bus.class}
+
+                    <div className="text-gray-800 text-base leading-relaxed flex items-center gap-2">
+                        <span className="font-bold uppercase tracking-wide">Route:</span>
+                        <span className="italic text-gray-600">{from}</span>
+                        <span className="text-lg font-semibold text-green-500">➔</span>
+                        <span className="italic text-gray-600">{to}</span>
                     </div>
+
                     <div className="text-gray-600 text-sm">
-                        Bus Number: <span className="font-medium">{bus.busNumber}</span>
+                        <span className="font-semibold">Seats Available:</span> {bus.seatsAvailable}
                     </div>
                 </div>
-
-                <div className="text-gray-800 text-base leading-relaxed flex items-center gap-2">
-                    <span className="font-bold uppercase tracking-wide">Route:</span>
-                    <span className="italic text-gray-600">{from}</span>
-                    <span className="text-lg font-semibold text-green-500">➔</span>
-                    <span className="italic text-gray-600">{to}</span>
+                <div className="mt-4 md:mt-0 text-right">
+                    <p className="text-gray-600 text-sm">
+                        <span className="font-semibold">Departure:</span>{" "}
+                        {new Date(bus.departureTime).toLocaleTimeString([], {
+                            hour: "2-digit",
+                            minute: "2-digit",
+                        })}
+                    </p>
+                    <p className="text-gray-600 text-sm">
+                        <span className="font-semibold">Arrival:</span>{" "}
+                        {new Date(bus.arrivalTime).toLocaleTimeString([], {
+                            hour: "2-digit",
+                            minute: "2-digit",
+                        })}
+                    </p>
+                    <p className="text-green-950 font-semibold text-xl mt-2">Price: ${bus.price}</p>
+                    <button className="w-full bg-green-950 text-white font-semibold py-2 rounded-lg hover:bg-green-700 mt-2">
+                        Book Now
+                    </button>
                 </div>
-
-                <div className="text-gray-600 text-sm">
-                    <span className="font-semibold">Seats Available:</span> {bus.seatsAvailable}
-                </div>
-            </div>
-            <div className="mt-4 md:mt-0 text-right">
-                <p className="text-gray-600 text-sm">
-                    <span className="font-semibold">Departure:</span>{" "}
-                    {new Date(bus.departureTime).toLocaleTimeString([], {
-                        hour: "2-digit",
-                        minute: "2-digit",
-                    })}
-                </p>
-                <p className="text-gray-600 text-sm">
-                    <span className="font-semibold">Arrival:</span>{" "}
-                    {new Date(bus.arrivalTime).toLocaleTimeString([], {
-                        hour: "2-digit",
-                        minute: "2-digit",
-                    })}
-                </p>
-                <p className="text-green-950 font-semibold text-xl mt-2">Price: ${bus.price}</p>
-                <button className="w-full bg-green-950 text-white font-semibold py-2 rounded-lg hover:bg-green-700 mt-2">
-                    Book Now
-                </button>
             </div>
         </div>
     );
@@ -146,112 +157,117 @@ const Bus: React.FC = () => {
     const handleShowMoreReturn = () => setShowMoreReturn(!showMoreReturn);
 
     return (
-        <div className="grid grid-cols-12 gap-6 px-6">
-            <div className="col-span-12 md:col-span-3 lg:col-span-2 shadow-lg p-4  bg-white space-y-8">
-                {/* Filters */}
-                <h1 className="font-bold text-xl text-blue-950">Filter By: </h1>
-                <hr />
-                <div className="space-y-4">
-                    <div className="flex flex-col space-y-2">
-                        <p className="font-semibold">BUS NAME:</p>
-                        {busNames.map((name) => (
-                            <label key={name} className="inline-flex items-center">
+        <div className="mt-3 w-[95%] mx-auto">
+            <BuyTicket></BuyTicket>
+            <div className="grid grid-cols-12 gap-6 px-1">
+
+                <div className="col-span-12 md:col-span-3 lg:col-span-2 shadow-lg p-4  bg-white space-y-8">
+                    {/* Filters */}
+                    <h1 className="font-bold text-xl text-blue-950">Filter By: </h1>
+                    <hr />
+                    <div className="space-y-4">
+                        <div className="flex flex-col space-y-2">
+                            <p className="font-semibold">BUS NAME:</p>
+                            {busNames.map((name) => (
+                                <label key={name} className="inline-flex items-center">
+                                    <input
+                                        type="radio"
+                                        name="busName"
+                                        value={name}
+                                        className="form-radio text-green-500"
+                                        checked={selectedBusName === name}
+                                        onChange={() => setSelectedBusName(name)}
+                                    />
+                                    <span className="ml-2">{name}</span>
+                                </label>
+                            ))}
+                            <label className="inline-flex items-center mt-2">
                                 <input
                                     type="radio"
                                     name="busName"
-                                    value={name}
+                                    value=""
                                     className="form-radio text-green-500"
-                                    checked={selectedBusName === name}
-                                    onChange={() => setSelectedBusName(name)}
+                                    checked={selectedBusName === ""}
+                                    onChange={() => setSelectedBusName("")}
                                 />
-                                <span className="ml-2">{name}</span>
+                                <span className="ml-2">All Buses</span>
                             </label>
-                        ))}
-                        <label className="inline-flex items-center mt-2">
-                            <input
-                                type="radio"
-                                name="busName"
-                                value=""
-                                className="form-radio text-green-500"
-                                checked={selectedBusName === ""}
-                                onChange={() => setSelectedBusName("")}
-                            />
-                            <span className="ml-2">All Buses</span>
-                        </label>
-                    </div>
-<hr />
-                    <div className="flex flex-col space-y-2">
-                        <p className="font-semibold">BUS CLASS:</p>
-                        {busClasses.map((className) => (
-                            <label key={className} className="inline-flex items-center">
+                        </div>
+                        <hr />
+                        <div className="flex flex-col space-y-2">
+                            <p className="font-semibold">BUS CLASS:</p>
+                            {busClasses.map((className) => (
+                                <label key={className} className="inline-flex items-center">
+                                    <input
+                                        type="radio"
+                                        name="class"
+                                        value={className}
+                                        className="form-radio text-green-500"
+                                        checked={selectedBusClass === className}
+                                        onChange={() => setSelectedBusClass(className)}
+                                    />
+                                    <span className="ml-2">{className}</span>
+                                </label>
+                            ))}
+                            <label className="inline-flex items-center mt-2">
                                 <input
                                     type="radio"
                                     name="class"
-                                    value={className}
+                                    value=""
                                     className="form-radio text-green-500"
-                                    checked={selectedBusClass === className}
-                                    onChange={() => setSelectedBusClass(className)}
+                                    checked={selectedBusClass === ""}
+                                    onChange={() => setSelectedBusClass("")}
                                 />
-                                <span className="ml-2">{className}</span>
+                                <span className="ml-2">All Classes</span>
                             </label>
-                        ))}
-                        <label className="inline-flex items-center mt-2">
-                            <input
-                                type="radio"
-                                name="class"
-                                value=""
-                                className="form-radio text-green-500"
-                                checked={selectedBusClass === ""}
-                                onChange={() => setSelectedBusClass("")}
-                            />
-                            <span className="ml-2">All Classes</span>
-                        </label>
+                        </div>
                     </div>
                 </div>
-            </div>
-           
-            <div className="col-span-12 md:col-span-9 lg:col-span-10 py-5">
-                {/* Departure Data */}
-                <div className="mb-10">
-                    <h3 className="text-xl font-Montserrat font-semibold mb-6">Departure Bus Schedule</h3>
-                    {isLoading ? (
-                        <div>Loading...</div>
-                    ) : filteredDepartureData.length > 0 ? (
-                        <div className="space-y-4">
-                            {filteredDepartureData.slice(0, showMoreDeparture ? filteredDepartureData.length : 5).map(renderBusCard)}
-                            <button
-                                onClick={handleShowMoreDeparture}
-                                className="mt-4 text-green-600 font-semibold"
-                            >
-                                {showMoreDeparture ? "Show Less" : "See More"}
-                            </button>
-                        </div>
-                    ) : (
-                        <p>No departure data available.</p>
-                    )}
-                </div>
-                <hr className="bg-blue-950 p-1" />
-                {/* Return Data */}
-                {returnDate && (
-                    <div>
-                        <h3 className="text-xl font-Montserrat font-semibold mb-6 pt-5">Return Bus Schedule</h3>
-                        {isReturnLoading ? (
+
+                <div className="col-span-12 md:col-span-9 lg:col-span-10 py-5">
+                    {/* Departure Data */}
+
+                    <div className="mb-10">
+                        <h3 className="text-xl font-Montserrat font-semibold mb-6">Departure Bus Schedule</h3>
+                        {isLoading ? (
                             <div>Loading...</div>
-                        ) : filteredReturnData.length > 0 ? (
+                        ) : filteredDepartureData.length > 0 ? (
                             <div className="space-y-4">
-                                {filteredReturnData.slice(0, showMoreReturn ? filteredReturnData.length : 5).map(renderBusCard)}
+                                {filteredDepartureData.slice(0, showMoreDeparture ? filteredDepartureData.length : 5).map(renderBusCard)}
                                 <button
-                                    onClick={handleShowMoreReturn}
+                                    onClick={handleShowMoreDeparture}
                                     className="mt-4 text-green-600 font-semibold"
                                 >
-                                    {showMoreReturn ? "Show Less" : "See More"}
+                                    {showMoreDeparture ? "Show Less" : "See More"}
                                 </button>
                             </div>
                         ) : (
-                            <p>No return data available.</p>
+                            <p>No departure data available.</p>
                         )}
                     </div>
-                )}
+                    <hr className="bg-blue-950 p-1" />
+                    {/* Return Data */}
+                    {returnDate && (
+                        <div>
+                            <h3 className="text-xl font-Montserrat font-semibold mb-6 pt-5">Return Bus Schedule</h3>
+                            {isReturnLoading ? (
+                                <div>Loading...</div>
+                            ) : filteredReturnData.length > 0 ? (
+                                <div className="space-y-4">
+                                    {filteredReturnData.slice(0, showMoreReturn ? filteredReturnData.length : 5).map(renderBusCard)}
+                                    <button
+                                        onClick={handleShowMoreReturn}
+                                        className="mt-4 text-green-600 font-semibold"
+                                    >
+                                        {showMoreReturn ? "Show Less" : "See More"}
+                                    </button>
+                                </div>
+                            ) : (
+                                <p>No return data available.</p>
+                            )}
+                        </div>
+                    )}
+                </div>
             </div>
         </div>
     );

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { axiosSecure } from "../../Hook/useAxiouSecure";
+import BuyTicket from "../../Components/Searchbar/BuyTicket";
 
 const trainNames = [
     "Parabat Express",
@@ -35,6 +36,10 @@ const Train: React.FC = () => {
     const [showMoreReturn, setShowMoreReturn] = useState(false);
 
     useEffect(() => {
+        setDepartureData([]);
+        setReturnData([]);
+        setError(null);
+        setReturnError(null);
         const fetchDepartureData = async () => {
             try {
                 const res = await axiosSecure.get(
@@ -142,6 +147,8 @@ const Train: React.FC = () => {
     const handleShowMoreReturn = () => setShowMoreReturn(!showMoreReturn);
 
     return (
+        <div >
+            <BuyTicket/>
         <div className="grid grid-cols-12 gap-6 px-6">
             <div className="col-span-12 md:col-span-3 lg:col-span-2 shadow-lg p-4  bg-white space-y-8">
                 {/* Filters */}
@@ -249,7 +256,7 @@ const Train: React.FC = () => {
                     </div>
                 )}
             </div>
-        </div>
+        </div></div>
     );
 };
 

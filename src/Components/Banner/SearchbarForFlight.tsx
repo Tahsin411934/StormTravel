@@ -14,7 +14,7 @@ type FormData = {
   selectedClass: string;
 };
 
-const SearchBarForBus: React.FC = () => {
+const SearchbarForFlight: React.FC = () => {
   const { register, handleSubmit, watch } = useForm<FormData>({
     defaultValues: {
       tripType: "oneway", // Set default trip type to "oneway"
@@ -157,10 +157,10 @@ const SearchBarForBus: React.FC = () => {
         type="submit"
         className="bg-blue-500 text-white py-2 px-4 rounded w-full"
       >
-        Search
+       Modify Search
       </button>
     </form>
   );
 };
 
-export default SearchBarForBus;
+export default SearchbarForFlight;

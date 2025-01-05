@@ -13,9 +13,9 @@ const Sidebar: React.FC = () => {
       <div className="h-full p-4 w-full dark:bg-gray-900 dark:text-gray-100">
         {/* Logo Section */}
         <div className=" flex items-center font-GreatVibes justify-center italic text-[#1b82ff] text-xl font-bold">
-            <img src="logo.png" alt="Logo" className="h-10 w-10" />
-            <span className="text-3xl mt-2 font-semibold transform: skew(-10deg)">StormTravel</span>
-          </div>
+          <img src="logo.png" alt="Logo" className="h-10 w-10" />
+          <span className="text-3xl mt-2 font-semibold transform: skew(-10deg)">StormTravel</span>
+        </div>
 
         <hr className="h-[1px] border-none bg-slate-600 mb-4" />
 
@@ -27,7 +27,7 @@ const Sidebar: React.FC = () => {
                 to="/dashboard"
                 end
                 className={({ isActive }) =>
-                  `flex items-center p-3 space-x-3 rounded-lg transition-all ease-in-out duration-200 
+                  `flex items-center p-3  rounded-lg transition-all ease-in-out duration-200 
                   ${isActive ? "bg-[#1C9FE1] text-white" : "text-gray-300 hover:bg-[#2b3a42] hover:text-white"}`}
               >
                 <MdDashboard className="w-5 h-5" />
@@ -38,11 +38,11 @@ const Sidebar: React.FC = () => {
             {/* Adding From Dropdown */}
             <li>
               <div
-                className="flex items-center p-3 space-x-3 cursor-pointer text-gray-300 hover:text-white hover:bg-[#2b3a42] rounded-lg transition-all duration-200"
+                className="flex items-center  space-x-3 cursor-pointer text-gray-300 hover:text-white hover:bg-[#2b3a42] rounded-lg transition-all duration-200"
                 onClick={() => setIsAddingOpen(!isAddingOpen)} // Toggle the 'Adding From' section
               >
                 <FaPlusCircle className="w-5 h-5" /> {/* Adding the icon here */}
-                <span className="font-semibold text-lg">Adding From</span>
+                <span className="font-semibold text-base">Ticket Management</span>
                 <FaAngleDown className={`ml-auto ${isAddingOpen ? 'rotate-180' : ''}`} />
               </div>
               {isAddingOpen && (
@@ -154,7 +154,7 @@ const Sidebar: React.FC = () => {
             {/* Settings Dropdown */}
             <li>
               <div
-                className="flex items-center p-3 space-x-3 cursor-pointer text-gray-300 hover:text-white hover:bg-[#2b3a42] rounded-lg transition-all duration-200"
+                className="flex items-center  space-x-3 cursor-pointer text-gray-300 hover:text-white hover:bg-[#2b3a42] rounded-lg transition-all duration-200"
                 onClick={() => setIsSettingsOpen(!isSettingsOpen)} // Toggle 'Settings' dropdown
               >
                 <MdSettings className="w-5 h-5" />

@@ -4,6 +4,7 @@ import { Overview } from './Overview';
 import PackageComponent from '../Package/Package';
 import { TourGuider } from '../TourGider/TourGuider';
 import { Faq } from './Faq';
+import OurPackages from './OurPackages';
 
 export const YourTravelCompass = () => {
     const [activeTab, setActiveTab] = useState("flight");
@@ -44,7 +45,7 @@ export const YourTravelCompass = () => {
                     <hr className='-ml-0 h-[1px] border-none bg-slate-200 mx-auto w-[100%]' />
                     {/* Render the active search bar based on the selected tab */}
                     {activeTab === "flight" && <div><Overview></Overview></div>}
-                    {activeTab === "bus" && <div><PackageComponent></PackageComponent></div>}
+                    {activeTab === "bus" && <div><OurPackages/></div>}
                     {activeTab === "train" && <div><Faq></Faq></div>}
                 </div>
 

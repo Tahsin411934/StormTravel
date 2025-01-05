@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import React from "react";
 import { axiosSecure } from "../../Hook/useAxiouSecure";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 const PackageDetails: React.FC = () => {
   const { id } = useParams();
@@ -52,12 +52,16 @@ const PackageDetails: React.FC = () => {
           </div>
           <p className="text-sm font-semibold">Duration: {data?.duration}</p>
           <div className="flex justify-between items-center space-x-4">
-            <p className="text-base font-semibold">Price: {data?.afterDiscountPrice} BDT <span><del>{data.price}</del></span></p> 
+            <p className="text-base font-semibold">Price: {data?.afterDiscountPrice} BDT <span><del>{data.price}</del></span></p>
             <p className="text-xs font-semibold"> {data?.discount}% Off</p>
-            
-            <button className="text-xs font-semibold px-4 py-2 bg-blue-900 rounded-md text-white hover:bg-blue-500 transition duration-300">
+
+            <Link
+              to={`/booking/package/${data._id}`}
+              className="text-xs font-semibold px-4 py-2 bg-blue-900 rounded-md text-white hover:bg-blue-500 transition duration-300"
+            >
               Book Now
-            </button>
+            </Link>
+
           </div>
         </div>
       </div>
