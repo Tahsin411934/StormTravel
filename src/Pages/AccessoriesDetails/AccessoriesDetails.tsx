@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useAccessory } from '../../utils/useAccessory';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { FaBangladeshiTakaSign } from 'react-icons/fa6';
 import { useAccessoriesByCategory } from '../../utils/useAccessoriesByCategory';
+import useScrollToTop from '../../Hook/useScrollToTop';
 
 // Define a type for the product with a quantity
 type Product = {
@@ -21,11 +22,20 @@ type CartProduct = Product & {
 
 export const AccessoriesDetails = () => {
   const { id } = useParams<{ id: string }>();
+  useScrollToTop();
+  const navigate = useNavigate();
 
   // Call hooks unconditionally at the top
   const { data, isLoading, error } = useAccessory(id!);
   const category = data?.category || '';
-  const { relatedData, relatedLoading, relatedError } = useAccessoriesByCategory(category);
+  const { relatedData, relatedLoading, relatedError } =
+    useAccessoriesByCategory(category);
+
+  const handleBuyNow = (product: Product) => {
+    const buyNowProducts = [product]; // Add selected product to an array
+    console.log(buyNowProducts)
+    navigate('/Accessories/order-summary', { state: { cart: buyNowProducts } }); // Navigate with the selected product
+  };
 
   const addToCart = (product: Product) => {
     const cart: CartProduct[] = JSON.parse(localStorage.getItem('cart') || '[]');
@@ -101,7 +111,10 @@ export const AccessoriesDetails = () => {
             >
               Add to Cart
             </button>
-            <button className="px-4 py-2 bg-black text-white rounded hover:bg-gray-800">
+            <button
+              onClick={() => handleBuyNow(data)}
+              className="px-4 py-2 bg-black text-white rounded hover:bg-gray-800"
+            >
               Buy Now
             </button>
           </div>

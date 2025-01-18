@@ -1,59 +1,16 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { FaBangladeshiTakaSign } from "react-icons/fa6";
 import { useNavigate } from "react-router-dom";
+import { useCart } from "../../Hook/useCart";
+
 
 interface CartProps {
   toggleModal: () => void;
 }
 
-interface CartItem {
-  _id: string;
-  imgUrl: string;
-  productName: string;
-  price: number;
-  quantity: number;
-  discount: number; // Discount in percentage
-}
-
 export const Cart: React.FC<CartProps> = ({ toggleModal }) => {
-  const [cart, setCart] = useState<CartItem[]>([]);
+  const { cart, updateQuantity, removeItem, calculateTotalPrice } = useCart();
   const navigate = useNavigate();
-
-  // Fetch cart data from localStorage
-  const fetchCart = () => {
-    const storedCart: CartItem[] = JSON.parse(localStorage.getItem("cart") || "[]");
-    setCart(storedCart);
-  };
-
-  // Fetch cart data when the component mounts
-  useEffect(() => {
-    fetchCart();
-  }, []);
-
-  // Sync cart with localStorage whenever the cart changes
-  useEffect(() => {
-    localStorage.setItem("cart", JSON.stringify(cart));
-  }, [cart]);
-
-  // Update quantity and dynamically calculate the total price
-  const updateQuantity = (itemId: string, newQuantity: number) => {
-    setCart((prevCart) =>
-      prevCart.map((item) =>
-        item._id === itemId
-          ? { ...item, quantity: newQuantity > 0 ? newQuantity : 1 }
-          : item
-      )
-    );
-  };
-
-  // Calculate the total price of all items in the cart after discount
-  const calculateTotalPrice = () => {
-    return cart.reduce(
-      (sum, item) =>
-        sum + (item.price * (1 - item.discount / 100)) * item.quantity,
-      0
-    );
-  };
 
   const handleOrder = () => {
     toggleModal();
@@ -89,8 +46,16 @@ export const Cart: React.FC<CartProps> = ({ toggleModal }) => {
               {cart.map((item) => (
                 <div
                   key={item._id}
-                  className="p-4 border rounded-xl shadow-sm bg-white space-y-4 max-w-[200px] mx-auto"
+                  className="relative p-4 border rounded-xl shadow-sm bg-white space-y-4 max-w-[200px] mx-auto"
                 >
+                  {/* Remove Button */}
+                  <button
+                    onClick={() => removeItem(item._id)}
+                    className="absolute top-2 right-2 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center"
+                  >
+                    <span className="text-lg font-semibold">X</span>
+                  </button>
+
                   {/* Image with smaller size */}
                   <img
                     src={item.imgUrl}

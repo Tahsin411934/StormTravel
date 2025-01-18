@@ -26,6 +26,7 @@ import { AccessoriesDetails } from "./Pages/AccessoriesDetails/AccessoriesDetail
 import Flight from "./Pages/SearchResult/Flight";
 import Train from "./Pages/SearchResult/Train";
 import TourGuideDetails from "./Pages/TourGuideDetails/TourGuideDetails";
+
 import { Shop } from "./Pages/Shop/Shop";
 
 import { AccessoriesByCategory } from "./Pages/AccessoriesByCategory/AccessoriesByCategory";
@@ -33,6 +34,7 @@ import BuyTicket from "./Pages/BuyTicket/BuyTicket";
 import { Booking } from "./Pages/Booking/Booking";
 import { BookingConfirm } from "./Pages/BookingConfirm/BookingConfirm";
 import { AccessoriesOrder } from "./Pages/AccessoriesOrder/AccessoriesOrder";
+import { BookingTourGuider } from "./Pages/TourGuideDetails/BookingTourGuider";
 
 
 const router = createBrowserRouter([
@@ -95,6 +97,10 @@ const router = createBrowserRouter([
       {
         path: "/guider/:id",
         element: <TourGuideDetails/> ,
+      },
+      {
+        path: "/guider/booking/:id",
+        element: <BookingTourGuider /> ,
       },
       {
         path: "/shop",
