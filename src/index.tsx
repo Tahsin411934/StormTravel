@@ -36,6 +36,8 @@ import { BookingConfirm } from "./Pages/BookingConfirm/BookingConfirm";
 import { AccessoriesOrder } from "./Pages/AccessoriesOrder/AccessoriesOrder";
 import { BookingTourGuider } from "./Pages/TourGuideDetails/BookingTourGuider";
 import { BusTicketBooking } from "./Pages/BusTicketBooking/BusTicketBooking";
+import AddFlightSchedule from "./Pages/Dashboard/AddFlight/AddFlightSchedule";
+import AddTrainSchedule from "./Pages/Dashboard/AddTrainSchedule/AddTrainSchedule";
 
 
 const router = createBrowserRouter([
@@ -155,6 +157,14 @@ const router = createBrowserRouter([
       {
         path: "/dashboard/AddBusSchedule",
         element: <AddBusSchedule />,
+      },
+      {
+        path: "/dashboard/AddFlightSchedule",
+        element: <AddFlightSchedule />,
+      },
+      {
+        path: "/dashboard/AddTrainSchedule",
+        element: <AddTrainSchedule />,
       },
       {
         path: "/dashboard/AddPackage",
