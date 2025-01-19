@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { axiosSecure } from "../../Hook/useAxiouSecure";
 import SearchBarForBus from "../../Components/Banner/SearchbarForFlight";
 import SearchBarForTrain from "../../Components/Banner/SearchbarForTrain";
@@ -105,7 +105,7 @@ const Bus: React.FC = () => {
                 key={bus.busNumber}
                 className="bg-gradient-to-r font-Poppins from-green-50 to-green-100 shadow-lg rounded-lg p-4 flex flex-col md:flex-row items-center justify-between hover:shadow-2xl "
             >
-                <div className="space-y-2 md:space-y-0 md:space-x-4 flex flex-col md:flex-row gap-20 items-start md:items-center">
+                <div className="space-y-2 mb-5 md:space-y-0 md:space-x-4 flex flex-col md:flex-row gap-20 items-start md:items-center">
                     <div>
                         <div className="text-green-900 text-lg font-bold">
                             {bus.busName}
@@ -144,10 +144,10 @@ const Bus: React.FC = () => {
                             minute: "2-digit",
                         })}
                     </p>
-                    <p className="text-green-950 font-semibold text-xl mt-2">Price: ${bus.price}</p>
-                    <button className="w-full bg-green-950 text-white font-semibold py-2 rounded-lg hover:bg-green-700 mt-2">
+                    <p className="text-green-950 font-semibold text-xl mt-2 mb-3">Price: ${bus.price}</p>
+                    <Link to={`/bus/${bus._id}`} className="w-full  bg-green-950 text-white font-semibold mt-5 p-2 rounded-lg hover:bg-green-700 ">
                         Book Now
-                    </button>
+                    </Link>
                 </div>
             </div>
         </div>

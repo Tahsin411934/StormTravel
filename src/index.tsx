@@ -35,6 +35,7 @@ import { Booking } from "./Pages/Booking/Booking";
 import { BookingConfirm } from "./Pages/BookingConfirm/BookingConfirm";
 import { AccessoriesOrder } from "./Pages/AccessoriesOrder/AccessoriesOrder";
 import { BookingTourGuider } from "./Pages/TourGuideDetails/BookingTourGuider";
+import { BusTicketBooking } from "./Pages/BusTicketBooking/BusTicketBooking";
 
 
 const router = createBrowserRouter([
@@ -57,6 +58,10 @@ const router = createBrowserRouter([
       {
         path: "/busSearchResult",
         element: <Bus></Bus>,
+      },
+      {
+        path: "/bus/:id",
+        element: <BusTicketBooking></BusTicketBooking>,
       },
       {
         path: "/flightSearchResult",
