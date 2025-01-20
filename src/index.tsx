@@ -38,6 +38,10 @@ import { BookingTourGuider } from "./Pages/TourGuideDetails/BookingTourGuider";
 import { BusTicketBooking } from "./Pages/BusTicketBooking/BusTicketBooking";
 import AddFlightSchedule from "./Pages/Dashboard/AddFlight/AddFlightSchedule";
 import AddTrainSchedule from "./Pages/Dashboard/AddTrainSchedule/AddTrainSchedule";
+import { FlightTicketBooking } from "./Pages/FlightTicketBooking/FlightTicketBooking";
+import { TrainTicketBooking } from "./Pages/TrainTicketBooking/TrainTicketBooking";
+import { ConfirmTrainTicketBooking } from "./Pages/ConfirmTicketBooking/ConfirmTrainTicketBooking";
+
 
 
 const router = createBrowserRouter([
@@ -68,6 +72,26 @@ const router = createBrowserRouter([
       {
         path: "/flightSearchResult",
         element: <Flight/>,
+      },
+      {
+        path: "/flight/:id",
+        element: <FlightTicketBooking/>,
+      },
+      {
+        path: "/train/booking/:id",
+        element: <ConfirmTrainTicketBooking/>,
+      },
+      // {
+      //   path: "/bus/booking/:id",
+      //   element: <ConfirmTicketBooking/>,
+      // },
+      // {
+      //   path: "/flight/booking/:id",
+      //   element: <ConfirmTicketBooking/>,
+      // },
+      {
+        path: "/train/:id",
+        element: <TrainTicketBooking/>,
       },
       {
         path: "/trainSearchResult",

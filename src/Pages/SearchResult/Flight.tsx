@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { axiosSecure } from "../../Hook/useAxiouSecure";
 import BuyTicket from "../../Components/Searchbar/BuyTicket";
 
@@ -150,10 +150,12 @@ const Flight: React.FC = () => {
                         minute: "2-digit",
                     })}
                 </p>
-                <p className="text-green-950 font-semibold text-xl mt-2">Price: ${flight.price}</p>
-                <button className="w-full bg-blue-950 text-white font-semibold py-2 rounded-lg hover:bg-blue-700 mt-2">
+                <p className="text-green-950 font-semibold text-xl mt-2 mb-2">Price: ${flight.price}</p>
+                <div className="py-3">
+                <Link to={`/flight/${flight._id}`}  className="w-full mt-5 bg-blue-950 text-white font-semibold p-2 rounded-lg hover:bg-blue-900 ">
                     Book Now
-                </button>
+                </Link>
+                </div>
             </div>
         </div>
     );

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { axiosSecure } from "../../Hook/useAxiouSecure";
 import BuyTicket from "../../Components/Searchbar/BuyTicket";
 
@@ -136,9 +136,11 @@ const Train: React.FC = () => {
                     })}
                 </p>
                 <p className="text-green-950 font-semibold text-xl mt-2">Price: ${train.price}</p>
-                <button className="w-full bg-green-950 text-white font-semibold py-2 rounded-lg hover:bg-green-700 mt-2">
-                    Book Now
-                </button>
+                <div className="py-3">
+                                <Link to={`/train/${train._id}`}  className="w-full mt-5 bg-blue-950 text-white font-semibold p-2 rounded-lg hover:bg-blue-900 ">
+                                    Book Now
+                                </Link>
+                                </div>
             </div>
         </div>
     );

@@ -105,12 +105,16 @@ const AddTrainSchedule: React.FC = () => {
             <label className="label">
               <span className="label-text">From</span>
             </label>
-            <input
-              type="text"
-              placeholder="Departure Location"
-              className="input input-bordered"
+            <select
               {...register("from", { required: "Departure location is required" })}
-            />
+              className="input input-bordered"
+            >
+              <option value="" disabled>Select departure city</option>
+              <option value="Chattogram">Chattogram</option>
+              <option value="Dhaka">Dhaka</option>
+              <option value="Sylhet">Sylhet</option>
+              <option value="cox">Cox'sbazar</option>
+            </select>
             {errors.from && <p className="text-red-500">{errors.from.message}</p>}
           </div>
 
@@ -118,12 +122,16 @@ const AddTrainSchedule: React.FC = () => {
             <label className="label">
               <span className="label-text">To</span>
             </label>
-            <input
-              type="text"
-              placeholder="Destination"
-              className="input input-bordered"
+            <select
               {...register("to", { required: "Destination is required" })}
-            />
+              className="input input-bordered"
+            >
+              <option value="" disabled>Select destination city</option>
+              <option value="Dhaka">Dhaka</option>
+              <option value="Chattogram">Chattogram</option>
+              <option value="cox">Cox'sbazar</option>
+              <option value="Sylhet">Sylhet</option>
+            </select>
             {errors.to && <p className="text-red-500">{errors.to.message}</p>}
           </div>
         </div>
