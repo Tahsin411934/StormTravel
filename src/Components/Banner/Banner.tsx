@@ -9,7 +9,8 @@ const Banner = () => {
 
   return (
     <div>
-      <div className="relative -z-10 w-full h-96 overflow-hidden bg-black font-Montserrat ">
+      {/* Video Banner Section */}
+      <div className="relative font-Murecho -z-10 w-full h-56 sm:h-64 md:h-80 overflow-hidden bg-black ">
         <video
           autoPlay
           muted
@@ -21,54 +22,62 @@ const Banner = () => {
         </video>
 
         {/* Overlay to darken the video */}
-        <div className="absolute top-0 left-0 w-full h-full bg-black opacity-30"></div>
+        <div className="absolute top-0 left-0 w-full h-full bg-black opacity-50"></div>
 
-        <div className="relative z-10 flex flex-col items-center justify-center h-full lg:w-[60%] text-white px-4">
-          <h1 className="md:text-4xl text-2xl">
-            Welcome to <span className="font-bold">StormTravel!</span>
+        {/* Text Overlay */}
+        <div className="relative z-10 flex flex-col items-center -mt-8 lg:items-start lg:w-[80%] lg:mx-auto justify-center h-full text-white px-4">
+          <h1 className="sm:text-3xl  ">
+            Welcome to <span className="text-2xl font-bold md:text-4xl ">StormTravel!</span>
           </h1>
-          <p className="mt-2 text-base lg:mr-8 font-semibold md:text-xl">
+          <p className="mt-2 text-sm sm:text-lg md:text-lg font-semibold">
             Find Flights, Bus, Hotels, Visa & Holidays
           </p>
         </div>
       </div>
 
-      <div className="bg-[#ffffff] z-10 rounded-lg shadow-2xl w-[70%] mx-auto p-4 -mt-32">
-        <div className="flex items-center -mx-4 space-x-2 overflow-x-auto overflow-y-hidden sm:justify-center flex-nowrap dark:bg-gray-100 dark:text-gray-800">
-          <div
-           
-            onClick={() => setActiveTab("flight")} // Set active tab to flight
-            className={`flex items-center flex-shrink-0 px-5 py-2 border-b-4 ${
-              activeTab === "flight" ? "border-violet-600" : "dark:border-gray-300"
-            } dark:text-gray-600`}
-          >
-            <MdFlight className="text-yellow-700 mr-2" /> Flight
+      {/* Search Tabs Section */}
+      <div className="container mx-auto px-4 lg:w-[83%]">
+        <div className="bg-white rounded-lg shadow-2xl -mt-20 md:-mt-32 p-4">
+          {/* Tabs Navigation */}
+          <div className="flex items-center justify-center">
+            <div className="flex overflow-x-auto scrollbar-hide">
+              <div
+                onClick={() => setActiveTab("flight")}
+                className={`flex items-center flex-shrink-0 px-4 py-2 border-b-4 ${
+                  activeTab === "flight"
+                    ? "border-violet-600"
+                    : "border-gray-300"
+                } text-gray-600 cursor-pointer`}
+              >
+                <MdFlight className="text-yellow-700 mr-2" /> Flight
+              </div>
+              <div
+                onClick={() => setActiveTab("bus")}
+                className={`flex items-center flex-shrink-0 px-4 py-2 border-b-4 ${
+                  activeTab === "bus" ? "border-violet-600" : "border-gray-300"
+                } text-gray-600 cursor-pointer`}
+              >
+                <MdLocalTaxi className="text-yellow-700 mr-2" /> Bus
+              </div>
+              <div
+                onClick={() => setActiveTab("train")}
+                className={`flex items-center flex-shrink-0 px-4 py-2 border-b-4 ${
+                  activeTab === "train" ? "border-violet-600" : "border-gray-300"
+                } text-gray-600 cursor-pointer`}
+              >
+                <MdTrain className="text-yellow-700 mr-2" /> Train
+              </div>
+            </div>
           </div>
-          <div
-           
-            onClick={() => setActiveTab("bus")} // Set active tab to bus
-            className={`flex items-center flex-shrink-0 px-5 py-2 border-b-4 ${
-              activeTab === "bus" ? "border-violet-600" : "dark:border-gray-300"
-            } dark:text-gray-600`}
-          >
-            <MdLocalTaxi className="text-yellow-700 mr-2" /> Bus
+          <hr className="my-2 border-gray-200" />
+
+          {/* Render the Active Search Bar */}
+          <div className="mt-4">
+            {activeTab === "flight" && <SearchbarForFlight />}
+            {activeTab === "bus" && <SearchbarForBus />}
+            {activeTab === "train" && <SearchBarForTrain />}
           </div>
-          <div
-            
-            onClick={() => setActiveTab("train")} // Set active tab to train
-            className={`flex items-center flex-shrink-0 px-5 py-2 border-b-4 ${
-              activeTab === "train" ? "border-violet-600" : "dark:border-gray-300"
-            } dark:text-gray-900`}
-          >
-            <MdTrain className="text-yellow-700 mr-2" /> Train
-          </div>
-         
         </div>
-        <hr className='-ml-0 h-[1px] border-none bg-slate-200 mx-auto w-[100%]' />
-        {/* Render the active search bar based on the selected tab */}
-        {activeTab === "flight" && <SearchbarForFlight />}
-        {activeTab === "bus" && <SearchbarForBus />}
-        {activeTab === "train" && <div><SearchBarForTrain/></div>}
       </div>
     </div>
   );

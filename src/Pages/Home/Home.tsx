@@ -10,14 +10,19 @@ import { TourGuider } from '../../Components/TourGider/TourGuider'
 
 const Home = () => {
     return (
-      <div >
-        <Banner></Banner>
+      <div  >
+        <Banner  ></Banner>
         <StepSection></StepSection>
+        <div className='bg-[#EBF0F4]'>
+
+        
+        
         <Package></Package>
         <YourTravelCompass></YourTravelCompass>
         <TourGuider/>
         <Accessories></Accessories> 
         <PayWith></PayWith>
+        </div>
       </div>
     )
  

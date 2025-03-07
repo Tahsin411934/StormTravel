@@ -67,7 +67,7 @@ const OurPackages: React.FC = () => {
             <div className="relative mb-12 w-full sm:w-[280px] md:w-[320px] lg:w-[350px] group transition-opacity duration-300">
               <div className="w-full h-[180px] sm:h-[200px] md:h-[220px] lg:h-[240px] relative overflow-hidden rounded-lg">
                 <img
-                  src={packageItem.discountImage || defaultMaleImage} // Use default image if none available
+                  src={packageItem.discountImage } // Use default image if none available
                   alt={packageItem.name}
                   className="w-full h-full object-cover transition-all duration-500 group-hover:scale-105" // Added transition and scale effect
                 />

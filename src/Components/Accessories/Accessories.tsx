@@ -27,7 +27,7 @@ export const Accessories: React.FC = () => {
       <div className='font-Poppins font-bold text-3xl'>
         <h1>Travel Accessories</h1>
       </div>
-      <div className='grid grid-cols-3 gap-5 relative '>
+      <div className='lg:grid grid-cols-3 gap-5 relative '>
         {data?.slice(0,6).map((item, index) => (
           <div key={index}>
            <Link to={`/Accessories/${item._id}/${item.category}`}>

@@ -127,6 +127,8 @@ const Bus: React.FC = () => {
 
                     <div className="text-gray-600 text-sm">
                         <span className="font-semibold">Seats Available:</span> {bus.seatsAvailable}
+                        <p>Date: {new Date(bus.date).toLocaleDateString("en-GB", { year: "numeric", month: "long", day: "numeric" })}</p>
+
                     </div>
                 </div>
                 <div className="mt-4 md:mt-0 text-right">

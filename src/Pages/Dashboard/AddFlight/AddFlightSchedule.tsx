@@ -26,7 +26,7 @@ const AddFlightSchedule: React.FC = () => {
 
   const onSubmit = async (data: FlightSchedule) => {
     try {
-      const res = await axiosSecure.post("http://localhost:5000/api/flight", data);
+      const res = await axiosSecure.post("https://share-trip-serverv1.vercel.app/api/flight", data);
       if (res.status === 200) {
         Swal.fire({
           icon: "success",

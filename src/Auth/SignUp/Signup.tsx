@@ -58,7 +58,7 @@ const SignUp: React.FC = () => {
       const signUpData = { ...data, mobileNumber: phone };
 
       // Post data to your backend
-      await axios.post("http://localhost:5000/api/users/register", signUpData);
+      await axios.post("https://share-trip-serverv1.vercel.app/api/users/register", signUpData);
 
       // Create user with email and password
       const userCredential = await createUser(data.email, data.password);
@@ -90,7 +90,7 @@ const SignUp: React.FC = () => {
           console.log("Logged-in user:", user?.user?.displayName);
   
           // Attempt to register the user
-          const response = await axios.post("http://localhost:5000/api/users/register", {
+          const response = await axios.post("https://share-trip-serverv1.vercel.app/api/users/register", {
               name: user?.user?.displayName,
               email: user?.user?.email,
               password: '12345' // Default password or handle it as needed

@@ -13,7 +13,7 @@ export const useFetchData = () => {
     const { data, isLoading, error } = useQuery<Accessory[]>({
         queryKey: ['data'],
         queryFn: async () => {
-            const response = await fetch('http://localhost:5000/api/accessories');
+            const response = await fetch('https://share-trip-serverv1.vercel.app/api/accessories');
             if (!response.ok) {
                 throw new Error('Network response was not ok');
             }

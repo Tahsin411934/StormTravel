@@ -10,7 +10,9 @@ module.exports = {
         Poppins:'"Poppins", sans-serif',
         Montserrat: '"Montserrat", sans-serif',
         Prata: '"Prata", serif',
-        GreatVibes: '"Great Vibes", cursive'
+        GreatVibes: '"Great Vibes", cursive',
+        Murecho: '"Murecho", serif'
+        
       }
     },
   },

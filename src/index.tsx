@@ -41,6 +41,13 @@ import AddTrainSchedule from "./Pages/Dashboard/AddTrainSchedule/AddTrainSchedul
 import { FlightTicketBooking } from "./Pages/FlightTicketBooking/FlightTicketBooking";
 import { TrainTicketBooking } from "./Pages/TrainTicketBooking/TrainTicketBooking";
 import { ConfirmTrainTicketBooking } from "./Pages/ConfirmTicketBooking/ConfirmTrainTicketBooking";
+import PackagesTable from "./Pages/Dashboard/Packages/PackagesTable";
+import AccessoriesTable from "./Pages/Dashboard/AccessoriesForm/AccessoriesTable";
+import ShowTourGider from "./Pages/Dashboard/ShowTourGider/ShowTourGider";
+import ShowBusSchedule from "./Pages/Dashboard/AddBusSchedule/ShowBusSchedule";
+
+
+
 
 
 
@@ -183,6 +190,10 @@ const router = createBrowserRouter([
         element: <AddBusSchedule />,
       },
       {
+        path: "/dashboard/BusSchedule",
+        element: <ShowBusSchedule />,
+      },
+      {
         path: "/dashboard/AddFlightSchedule",
         element: <AddFlightSchedule />,
       },
@@ -193,6 +204,18 @@ const router = createBrowserRouter([
       {
         path: "/dashboard/AddPackage",
         element: <PackageForm />,
+      },
+      {
+        path: "/dashboard/showPackage",
+        element: <PackagesTable />,
+      },
+      {
+        path: "/dashboard/showAccessories",
+        element: <AccessoriesTable />,
+      },
+      {
+        path: "/dashboard/ShowTourGuide",
+        element: <ShowTourGider />,
       },
       {
         path: "/dashboard/AddAccessries",

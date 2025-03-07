@@ -27,7 +27,7 @@ export const BookingConfirm = () => {
 
     const updateBookingStatus = async () => {
         try {
-            const response = await axios.put(`http://localhost:5000/api/booking/bookings/${bookingData.id}`, {
+            const response = await axios.put(`https://share-trip-serverv1.vercel.app/api/booking/bookings/${bookingData.id}`, {
                 status: true, // Update the booking status to true
             });
 

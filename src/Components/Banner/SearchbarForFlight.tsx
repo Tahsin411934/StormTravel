@@ -36,14 +36,14 @@ const SearchbarForFlight: React.FC = () => {
   
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="p-4">
+    <form onSubmit={handleSubmit(onSubmit)} className="px-4">
       <div className="flex flex-col md:flex-row items-center justify-between">
         {/* Trip Type Selection */}
         <div className="mb-4 flex space-x-2">
           <label
             className={`p-2 rounded-md ${
               watch("tripType") === "oneway"
-                ? "bg-blue-500 text-white"
+                ? "bg-blue-900 text-white"
                 : "bg-blue-100"
             }`}
           >
@@ -58,7 +58,7 @@ const SearchbarForFlight: React.FC = () => {
           <label
             className={`p-2 rounded-md ${
               watch("tripType") === "round"
-                ? "bg-blue-500 text-white"
+                ? "bg-blue-900 text-white"
                 : "bg-blue-100"
             }`}
           >
@@ -72,7 +72,7 @@ const SearchbarForFlight: React.FC = () => {
           </label>
         </div>
 
-        <div className="md:flex items-center gap-4 w-full md:w-auto">
+        <div className="flex items-center gap-4 w-full md:w-auto">
           {/* Class Selection */}
           <div className="mb-4 w-full md:w-auto">
             <select
@@ -97,11 +97,11 @@ const SearchbarForFlight: React.FC = () => {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-11 gap-2 md:gap-4 mb-4">
+      <div className="grid grid-cols-1 grid-cols-11 gap-2 md:gap-4 mb-4">
         {/* First City Selection */}
         <select
           {...register("from")}
-          className="border border-gray-300 p-2 md:col-span-5 rounded bg-white"
+          className="border border-gray-300 p-2 col-span-5 rounded bg-white"
         >
           <option value="" disabled>
             Select departure city
@@ -113,14 +113,14 @@ const SearchbarForFlight: React.FC = () => {
         </select>
 
         {/* Switch Icon */}
-        <div className="flex items-center justify-center md:col-span-1">
+        <div className="flex items-center justify-center col-span-1">
           <GoArrowSwitch size={20} className="text-blue-500" />
         </div>
 
         {/* Second City Selection */}
         <select
           {...register("to")}
-          className="border border-gray-300 p-2 md:col-span-5 rounded bg-white"
+          className="border border-gray-300 p-2 col-span-5 rounded bg-white"
         >
           <option value="" disabled>
             Select destination city
@@ -133,22 +133,22 @@ const SearchbarForFlight: React.FC = () => {
       </div>
 
       {/* Date Selection */}
-      <div className="grid grid-cols-1 md:grid-cols-11 gap-2 md:gap-4 mb-4">
+      <div className="grid  grid-cols-11 gap-2 md:gap-4 mb-4">
         <input
           type="date"
           {...register("departureDate")}
-          className="border border-gray-300 p-2 md:col-span-5 rounded w-full"
+          className="border border-gray-300 p-2 col-span-5 rounded w-full"
         />
 
         {/* Switch Icon */}
-        <div className="flex items-center justify-center md:col-span-1">
+        <div className="flex items-center justify-center col-span-1">
           <MdOutlineUpdate size={20} className="text-blue-500" />
         </div>
 
         <input
           type="date"
           {...register("returnDate")}
-          className="border border-gray-300 md:col-span-5 p-2 rounded w-full"
+          className="border border-gray-300 col-span-5 p-2 rounded w-full"
           disabled={watch("tripType") === "oneway"}
         />
       </div>
@@ -157,7 +157,7 @@ const SearchbarForFlight: React.FC = () => {
         type="submit"
         className="bg-blue-500 text-white py-2 px-4 rounded w-full"
       >
-       Modify Search
+       Search
       </button>
     </form>
   );

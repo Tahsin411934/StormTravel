@@ -38,7 +38,6 @@ const Flight: React.FC = () => {
         setReturnData([]);
         setError(null);
         setReturnError(null);
-
         const fetchDepartureData = async () => {
             setIsLoading(true);
             try {
@@ -94,7 +93,7 @@ const Flight: React.FC = () => {
         }
     }, [returnDate, from, to]);
 
-    const filteredDepartureData = departureData.filter(
+    const filteredDepartureData = departureData?.filter(
         (flight) =>
             (selectedFlightName ? flight.flightName === selectedFlightName : true) &&
             (selectedFlightClass ? flight.class === selectedFlightClass : true)
@@ -127,12 +126,14 @@ const Flight: React.FC = () => {
                 <div className="text-gray-800 text-base leading-relaxed flex items-center gap-2">
                     <span className="font-bold uppercase tracking-wide">Route:</span>
                     <span className="italic text-gray-600">{from}</span>
-                    <span className="text-lg font-semibold text-blue-500">➔</span>
+                    <span className="text-lg font-semibold text-blue-900">➔</span>
                     <span className="italic text-gray-600">{to}</span>
                 </div>
 
                 <div className="text-gray-800 text-base">
                     <span className="font-semibold">Seats Available:</span> {flight.seatsAvailable}
+                    <p>Date: {new Date(flight.date).toLocaleDateString("en-GB", { year: "numeric", month: "long", day: "numeric" })}</p>
+
                 </div>
             </div>
             <div className="mt-4 md:mt-0 text-right">

@@ -26,7 +26,7 @@ const AddTourGuider = () => {
   const onSubmit = async (data: TourGuide) => {
     console.log(data);
     try {
-      const res = await axiosSecure.post("http://localhost:5000/api/becomeTourGider/add", data);
+      const res = await axiosSecure.post("https://share-trip-serverv1.vercel.app/api/becomeTourGider/add", data);
       if (res.status === 200) {
         Swal.fire({
           icon: 'success',

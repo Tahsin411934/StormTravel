@@ -24,7 +24,7 @@ const TourGuideDetails: React.FC = () => {
   const { data: tourGuide, isLoading, error } = useQuery<TourGuide>({
     queryKey: ['TourGuide', id],
     queryFn: async () => {
-      const response = await fetch(`http://localhost:5000/api/becomeTourGider/${id}`);
+      const response = await fetch(`https://share-trip-serverv1.vercel.app/api/becomeTourGider/${id}`);
       if (!response.ok) {
         throw new Error('Failed to fetch tour guide');
       }

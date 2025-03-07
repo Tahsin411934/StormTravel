@@ -16,7 +16,7 @@ export const useAccessoriesByCategory = (category: string) => {
   const { data, isLoading, error } = useQuery<Accessory[]>({
     queryKey: ['accessory', category], // Use category for a unique query key
     queryFn: async () => {
-      const response = await fetch(`http://localhost:5000/api/accessories/relate/${category}`);
+      const response = await fetch(`https://share-trip-serverv1.vercel.app/api/accessories/relate/${category}`);
       if (!response.ok) {
         throw new Error('Failed to fetch related accessories');
       }

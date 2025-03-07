@@ -29,7 +29,7 @@ const AddTrainSchedule: React.FC = () => {
 
   const onSubmit = async (data: TrainSchedule) => {
     try {
-      const res = await axiosSecure.post("http://localhost:5000/api/train-schedule", data);
+      const res = await axiosSecure.post("https://share-trip-serverv1.vercel.app/api/train-schedule", data);
       if (res.status === 200) {
         Swal.fire({
           icon: "success",

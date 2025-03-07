@@ -15,7 +15,7 @@ export const useAccessory = (id: string) => {
   const { data, isLoading, error } = useQuery<Accessory>({
     queryKey: ['accessory', id], // Use id to create a unique queryKey
     queryFn: async () => {
-      const response = await fetch(`http://localhost:5000/api/accessories/${id}`);
+      const response = await fetch(`https://share-trip-serverv1.vercel.app/api/accessories/${id}`);
       if (!response.ok) {
         throw new Error('Network response was not ok');
       }

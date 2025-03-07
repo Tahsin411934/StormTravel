@@ -15,7 +15,7 @@ export const usePackage = () => {
   const { data, isLoading, error } = useQuery<Package[]>({
     queryKey: ['Package'],
     queryFn: async () => {
-      const response = await fetch('http://localhost:5000/api/package/activePackage');
+      const response = await fetch('https://share-trip-serverv1.vercel.app/api/package/activePackage');
       if (!response.ok) {
         throw new Error('Network response was not ok');
       }

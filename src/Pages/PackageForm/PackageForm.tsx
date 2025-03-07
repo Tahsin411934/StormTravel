@@ -30,7 +30,7 @@ const PackageForm: React.FC = () => {
     const packageData = { ...data, features: featuresArray, isActive };
 
     try {
-      const res = await axiosSecure.post("http://localhost:5000/api/package", packageData);
+      const res = await axiosSecure.post("https://share-trip-serverv1.vercel.app/api/package", packageData);
       if (res.status === 200) {
         Swal.fire({
           icon: "success",

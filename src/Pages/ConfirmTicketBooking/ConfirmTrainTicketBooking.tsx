@@ -16,7 +16,7 @@ export const ConfirmTrainTicketBooking = () => {
     totalSelectedSeats,
     totalPrice,
   } = location.state || {}; // Use optional chaining in case state is undefined
-
+console.log(selectedSeats)
   return (
     <div className="px-8 py-3 bg-gradient-to-r from-indigo-50 via-blue-50 to-indigo-50 min-h-screen">
       <div className="w-[87%] mx-auto">
