@@ -3,6 +3,8 @@ import { Link, NavLink, useLocation } from 'react-router-dom';
 import { useAuth } from '../../AuthProvider/AuthContext'; // Import the auth context for user authentication status
 import { FaUser } from 'react-icons/fa'; // Import the user icon
 import { Cart } from '../Cart/Cart';
+import { useSelector } from 'react-redux'; // Import useSelector to access Redux store
+import { RootState } from '../../redux/store'; // Import RootState for type safety
 
 const Navbar: React.FC = () => {
   const { user, logOut } = useAuth();
@@ -10,6 +12,9 @@ const Navbar: React.FC = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState<boolean>(false); // Dropdown state
   const [isCartModalOpen, setCartModalOpen] = useState(false);
   const location = useLocation();
+
+  // Get cart state from Redux store
+  const cart = useSelector((state: RootState) => state.cart.cart);
 
   const links = [
     { to: '/', label: 'Home' },
@@ -121,7 +126,7 @@ const Navbar: React.FC = () => {
           <div className="hidden lg:flex flex-row-reverse gap-10 items-center space-x-4">
             {user ? (
               <>
-              <Link className='font-bold text-blue-950 border p-2 rounded-full border-blue-950' to="/dashboard">Dashboard </Link>
+                <Link className='font-bold text-blue-950 border p-2 rounded-full border-blue-950' to="/dashboard">Dashboard </Link>
                 <div className="relative" id="user-dropdown">
                   <button
                     onClick={toggleDropdown}
@@ -163,7 +168,7 @@ const Navbar: React.FC = () => {
               🛒
               {/* Badge showing the number of items in the cart */}
               <span className="absolute top-0 right-0 bg-red-500 text-white text-xs w-5 h-5 rounded-full flex items-center justify-center">
-                {JSON.parse(localStorage.getItem('cart') || '[]').length}
+                {cart.length} {/* Use cart length from Redux store */}
               </span>
             </button>
           </div>

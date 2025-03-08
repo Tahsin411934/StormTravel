@@ -1,10 +1,21 @@
 import React, { useState } from "react";
-import { NavLink } from "react-router-dom";
-import { MdAppBlocking, MdBackpack, MdDashboard, MdSettings } from "react-icons/md";
-import { FaAngleDown, FaAngleUp, FaPlusCircle } from "react-icons/fa";
+import { Link, NavLink } from "react-router-dom";
+import {
+  MdDashboard,
+  MdSettings,
+  MdBackpack,
+  MdDirectionsBus,
+  MdTrain,
+  MdFlight,
+  MdTour,
+  MdShoppingCart,
+} from "react-icons/md";
+import { FaAngleDown, FaPlusCircle } from "react-icons/fa";
 
 const Sidebar: React.FC = () => {
-  const [isAddingOpen, setIsAddingOpen] = useState(false); // State for 'Ticket Management' dropdown
+  const [isBusOpen, setIsBusOpen] = useState(false); // State for 'Bus' dropdown
+  const [isTrainOpen, setIsTrainOpen] = useState(false); // State for 'Train' dropdown
+  const [isFlightOpen, setIsFlightOpen] = useState(false); // State for 'Flight' dropdown
   const [isAccessoriesOpen, setIsAccessoriesOpen] = useState(false); // State for 'Accessories' dropdown
   const [isPackagesOpen, setIsPackagesOpen] = useState(false); // State for 'Packages' dropdown
   const [isSettingsOpen, setIsSettingsOpen] = useState(false); // State for 'Settings' dropdown
@@ -15,12 +26,15 @@ const Sidebar: React.FC = () => {
     <div className="sidebar-container bg-gray-200 text-gray-900 h-screen w-64">
       <div className="h-full p-4">
         {/* Logo Section */}
-        <div className="flex items-center justify-center mb-6">
-          <img src="logo.png" alt="Logo" className="h-10 w-10" />
-          <span className="text-2xl font-semibold ml-2">StormTravel</span>
-        </div>
-
-        <hr className="border-gray-700 mb-4" />
+        <Link to="/">
+        <div className=" flex items-center font-GreatVibes justify-center italic text-[#1b82ff] text-xl font-bold">
+            <img src="https://i.ibb.co.com/pBVCHb6n/logo.png" alt="Logo" className="h-10 w-10" />
+            <span className="text-3xl mt-2 font-semibold transform: skew(-10deg)">
+              StormTravel
+            </span>
+          </div>
+          </Link>
+        <hr className="border-gray-300 mb-4" />
 
         <div className="space-y-2">
           {/* Dashboard Link */}
@@ -37,19 +51,19 @@ const Sidebar: React.FC = () => {
             <span>Dashboard</span>
           </NavLink>
 
-          {/* Ticket Management Dropdown */}
+          {/* Bus Dropdown */}
           <div>
             <div
               className="flex items-center justify-between p-2 rounded-lg cursor-pointer hover:bg-gray-700"
-              onClick={() => setIsAddingOpen(!isAddingOpen)}
+              onClick={() => setIsBusOpen(!isBusOpen)}
             >
               <div className="flex items-center hover:text-white">
-                <FaPlusCircle className="w-5 h-5 mr-2" />
-                <span>Ticket Management</span>
+                <MdDirectionsBus className="w-5 h-5 mr-2" />
+                <span>Bus</span>
               </div>
-              <FaAngleDown className={`transition-transform ${isAddingOpen ? "rotate-180" : ""}`} />
+              <FaAngleDown className={`transition-transform ${isBusOpen ? "rotate-180" : ""}`} />
             </div>
-            {isAddingOpen && (
+            {isBusOpen && (
               <ul className="pl-6 mt-2 space-y-2">
                 <li>
                   <NavLink
@@ -60,6 +74,7 @@ const Sidebar: React.FC = () => {
                       }`
                     }
                   >
+                    <FaPlusCircle className="w-4 h-4 mr-2" />
                     <span>Add Bus Schedule</span>
                   </NavLink>
                 </li>
@@ -72,33 +87,28 @@ const Sidebar: React.FC = () => {
                       }`
                     }
                   >
-                    <span>All Bus Schedule</span>
+                    <MdDirectionsBus className="w-4 h-4 mr-2" />
+                    <span>Bus Schedule</span>
                   </NavLink>
                 </li>
-                <li>
-                  <NavLink
-                    to="/dashboard/AddFlightSchedule"
-                    className={({ isActive }) =>
-                      `flex items-center p-2 rounded-lg transition-colors ${
-                        isActive ? "bg-blue-600 text-white" : "hover:bg-gray-700 hover:text-white"
-                      }`
-                    }
-                  >
-                    <span>Add Flight Schedule</span>
-                  </NavLink>
-                </li>
-                <li>
-                  <NavLink
-                    to="/dashboard/AddFlightSchedule"
-                    className={({ isActive }) =>
-                      `flex items-center p-2 rounded-lg transition-colors ${
-                        isActive ? "bg-blue-600 text-white" : "hover:bg-gray-700 hover:text-white"
-                      }`
-                    }
-                  >
-                    <span>All Flight Schedule</span>
-                  </NavLink>
-                </li>
+              </ul>
+            )}
+          </div>
+
+          {/* Train Dropdown */}
+          <div>
+            <div
+              className="flex items-center justify-between p-2 rounded-lg cursor-pointer hover:bg-gray-700"
+              onClick={() => setIsTrainOpen(!isTrainOpen)}
+            >
+              <div className="flex items-center hover:text-white">
+                <MdTrain className="w-5 h-5 mr-2" />
+                <span>Train</span>
+              </div>
+              <FaAngleDown className={`transition-transform ${isTrainOpen ? "rotate-180" : ""}`} />
+            </div>
+            {isTrainOpen && (
+              <ul className="pl-6 mt-2 space-y-2">
                 <li>
                   <NavLink
                     to="/dashboard/AddTrainSchedule"
@@ -108,6 +118,7 @@ const Sidebar: React.FC = () => {
                       }`
                     }
                   >
+                    <FaPlusCircle className="w-4 h-4 mr-2" />
                     <span>Add Train Schedule</span>
                   </NavLink>
                 </li>
@@ -120,10 +131,54 @@ const Sidebar: React.FC = () => {
                       }`
                     }
                   >
-                    <span>All Train Schedule</span>
+                    <MdTrain className="w-4 h-4 mr-2" />
+                    <span>Train Schedule</span>
                   </NavLink>
                 </li>
-                
+              </ul>
+            )}
+          </div>
+
+          {/* Flight Dropdown */}
+          <div>
+            <div
+              className="flex items-center justify-between p-2 rounded-lg cursor-pointer hover:bg-gray-700"
+              onClick={() => setIsFlightOpen(!isFlightOpen)}
+            >
+              <div className="flex items-center hover:text-white">
+                <MdFlight className="w-5 h-5 mr-2" />
+                <span>Flight</span>
+              </div>
+              <FaAngleDown className={`transition-transform ${isFlightOpen ? "rotate-180" : ""}`} />
+            </div>
+            {isFlightOpen && (
+              <ul className="pl-6 mt-2 space-y-2">
+                <li>
+                  <NavLink
+                    to="/dashboard/AddFlightSchedule"
+                    className={({ isActive }) =>
+                      `flex items-center p-2 rounded-lg transition-colors ${
+                        isActive ? "bg-blue-600 text-white" : "hover:bg-gray-700 hover:text-white"
+                      }`
+                    }
+                  >
+                    <FaPlusCircle className="w-4 h-4 mr-2" />
+                    <span>Add Flight Schedule</span>
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink
+                    to="/dashboard/FlightSchedule"
+                    className={({ isActive }) =>
+                      `flex items-center p-2 rounded-lg transition-colors ${
+                        isActive ? "bg-blue-600 text-white" : "hover:bg-gray-700 hover:text-white"
+                      }`
+                    }
+                  >
+                    <MdFlight className="w-4 h-4 mr-2" />
+                    <span>Flight Schedule</span>
+                  </NavLink>
+                </li>
               </ul>
             )}
           </div>
@@ -135,8 +190,8 @@ const Sidebar: React.FC = () => {
               onClick={() => setIsAccessoriesOpen(!isAccessoriesOpen)}
             >
               <div className="flex items-center hover:text-white">
-                <MdBackpack className="w-5 h-5 mr-2 hover:text-white" />
-                <span className="">Accessories</span>
+                <MdBackpack className="w-5 h-5 mr-2" />
+                <span>Accessories</span>
               </div>
               <FaAngleDown className={`transition-transform ${isAccessoriesOpen ? "rotate-180" : ""}`} />
             </div>
@@ -151,6 +206,7 @@ const Sidebar: React.FC = () => {
                       }`
                     }
                   >
+                    <FaPlusCircle className="w-4 h-4 mr-2" />
                     <span>Add Accessories</span>
                   </NavLink>
                 </li>
@@ -163,6 +219,7 @@ const Sidebar: React.FC = () => {
                       }`
                     }
                   >
+                    <MdBackpack className="w-4 h-4 mr-2" />
                     <span>Show Accessories</span>
                   </NavLink>
                 </li>
@@ -193,6 +250,7 @@ const Sidebar: React.FC = () => {
                       }`
                     }
                   >
+                    <FaPlusCircle className="w-4 h-4 mr-2" />
                     <span>Add Package</span>
                   </NavLink>
                 </li>
@@ -205,6 +263,7 @@ const Sidebar: React.FC = () => {
                       }`
                     }
                   >
+                    <MdBackpack className="w-4 h-4 mr-2" />
                     <span>Show Package</span>
                   </NavLink>
                 </li>
@@ -219,7 +278,7 @@ const Sidebar: React.FC = () => {
               onClick={() => setIsTourGuideOpen(!isTourGuideOpen)}
             >
               <div className="flex items-center hover:text-white">
-                <MdBackpack className="w-5 h-5 mr-2" />
+                <MdTour className="w-5 h-5 mr-2" />
                 <span>Tour Guide</span>
               </div>
               <FaAngleDown className={`transition-transform ${isTourGuideOpen ? "rotate-180" : ""}`} />
@@ -235,6 +294,7 @@ const Sidebar: React.FC = () => {
                       }`
                     }
                   >
+                    <FaPlusCircle className="w-4 h-4 mr-2" />
                     <span>Add Tour Guide</span>
                   </NavLink>
                 </li>
@@ -247,6 +307,7 @@ const Sidebar: React.FC = () => {
                       }`
                     }
                   >
+                    <MdTour className="w-4 h-4 mr-2" />
                     <span>Show Tour Guide</span>
                   </NavLink>
                 </li>
@@ -261,7 +322,7 @@ const Sidebar: React.FC = () => {
               onClick={() => setIsOrderOpen(!isOrderOpen)}
             >
               <div className="flex items-center hover:text-white">
-                <MdBackpack className="w-5 h-5 mr-2" />
+                <MdShoppingCart className="w-5 h-5 mr-2" />
                 <span>Order</span>
               </div>
               <FaAngleDown className={`transition-transform ${isOrderOpen ? "rotate-180" : ""}`} />
@@ -277,6 +338,7 @@ const Sidebar: React.FC = () => {
                       }`
                     }
                   >
+                    <FaPlusCircle className="w-4 h-4 mr-2" />
                     <span>Add Order</span>
                   </NavLink>
                 </li>
@@ -289,6 +351,7 @@ const Sidebar: React.FC = () => {
                       }`
                     }
                   >
+                    <MdShoppingCart className="w-4 h-4 mr-2" />
                     <span>Show Order</span>
                   </NavLink>
                 </li>
@@ -319,6 +382,7 @@ const Sidebar: React.FC = () => {
                       }`
                     }
                   >
+                    <MdSettings className="w-4 h-4 mr-2" />
                     <span>Profile Settings</span>
                   </NavLink>
                 </li>
@@ -331,6 +395,7 @@ const Sidebar: React.FC = () => {
                       }`
                     }
                   >
+                    <MdSettings className="w-4 h-4 mr-2" />
                     <span>Privacy Settings</span>
                   </NavLink>
                 </li>

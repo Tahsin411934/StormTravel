@@ -16,7 +16,6 @@ import DashboardLayout from "./Layouts/AdminLayout/DashboardLayout";
 import Dashboard from "./Pages/Dashboard/DashBoard/Dashboard";
 import AddBusSchedule from "./Pages/Dashboard/AddBusSchedule/AddBusSchedule";
 import Bus from "./Pages/SearchResult/Bus";
-
 import PackageForm from "./Pages/PackageForm/PackageForm";
 import PackageDetails from './Pages/PackageDetails/PackageDetails';
 import AccessoriesForm from "./Pages/Dashboard/AccessoriesForm/AccessoriesForm";
@@ -26,9 +25,7 @@ import { AccessoriesDetails } from "./Pages/AccessoriesDetails/AccessoriesDetail
 import Flight from "./Pages/SearchResult/Flight";
 import Train from "./Pages/SearchResult/Train";
 import TourGuideDetails from "./Pages/TourGuideDetails/TourGuideDetails";
-
 import { Shop } from "./Pages/Shop/Shop";
-
 import { AccessoriesByCategory } from "./Pages/AccessoriesByCategory/AccessoriesByCategory";
 import BuyTicket from "./Pages/BuyTicket/BuyTicket";
 import { Booking } from "./Pages/Booking/Booking";
@@ -45,11 +42,10 @@ import PackagesTable from "./Pages/Dashboard/Packages/PackagesTable";
 import AccessoriesTable from "./Pages/Dashboard/AccessoriesForm/AccessoriesTable";
 import ShowTourGider from "./Pages/Dashboard/ShowTourGider/ShowTourGider";
 import ShowBusSchedule from "./Pages/Dashboard/AddBusSchedule/ShowBusSchedule";
-
-
-
-
-
+import FlightSchedule from "./Pages/Dashboard/AddFlight/FlightSchedule";
+import TrainSchedule from "./Pages/Dashboard/TrainSchedule";
+import { Provider } from "react-redux";
+import { store } from "./redux/store";
 
 const router = createBrowserRouter([
   {
@@ -78,35 +74,27 @@ const router = createBrowserRouter([
       },
       {
         path: "/flightSearchResult",
-        element: <Flight/>,
+        element: <Flight />,
       },
       {
         path: "/flight/:id",
-        element: <FlightTicketBooking/>,
+        element: <FlightTicketBooking />,
       },
       {
         path: "/train/booking/:id",
-        element: <ConfirmTrainTicketBooking/>,
+        element: <ConfirmTrainTicketBooking />,
       },
-      // {
-      //   path: "/bus/booking/:id",
-      //   element: <ConfirmTicketBooking/>,
-      // },
-      // {
-      //   path: "/flight/booking/:id",
-      //   element: <ConfirmTicketBooking/>,
-      // },
       {
         path: "/train/:id",
-        element: <TrainTicketBooking/>,
+        element: <TrainTicketBooking />,
       },
       {
         path: "/trainSearchResult",
-        element: <Train/>,
+        element: <Train />,
       },
       {
         path: "/packages",
-        element: <Packages></Packages> ,
+        element: <Packages></Packages>,
       },
       {
         path: "/package/:id",
@@ -114,39 +102,39 @@ const router = createBrowserRouter([
       },
       {
         path: "/Accessories/:id/:catagory",
-        element: <AccessoriesDetails/> ,
+        element: <AccessoriesDetails />,
       },
       {
         path: "/Accessories/:category",
-        element: <AccessoriesByCategory/> ,
+        element: <AccessoriesByCategory />,
       },
       {
         path: "/Accessories/order-summary",
-        element: <AccessoriesOrder/> ,
+        element: <AccessoriesOrder />,
       },
       {
         path: "/booking/:type/:id",
-        element: <Booking></Booking> ,
+        element: <Booking></Booking>,
       },
       {
         path: "/bookingConfirm/:id",
-        element: <BookingConfirm/>,
+        element: <BookingConfirm />,
       },
       {
         path: "/guider/:id",
-        element: <TourGuideDetails/> ,
+        element: <TourGuideDetails />,
       },
       {
         path: "/guider/booking/:id",
-        element: <BookingTourGuider /> ,
+        element: <BookingTourGuider />,
       },
       {
         path: "/shop",
-        element: <Shop/> ,
+        element: <Shop />,
       },
       {
         path: "/buy-ticket",
-        element: <BuyTicket /> ,
+        element: <BuyTicket />,
       },
       {
         path: "/profile",
@@ -176,7 +164,6 @@ const router = createBrowserRouter([
       },
     ],
   },
-
   {
     path: "/dashboard",
     element: <DashboardLayout />,
@@ -198,8 +185,16 @@ const router = createBrowserRouter([
         element: <AddFlightSchedule />,
       },
       {
+        path: "/dashboard/FlightSchedule",
+        element: <FlightSchedule />,
+      },
+      {
         path: "/dashboard/AddTrainSchedule",
         element: <AddTrainSchedule />,
+      },
+      {
+        path: "/dashboard/TrainSchedule",
+        element: <TrainSchedule />,
       },
       {
         path: "/dashboard/AddPackage",
@@ -223,7 +218,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/dashboard/AddTourGuider",
-        element: <AddTourGuider/> ,
+        element: <AddTourGuider />,
       },
     ],
   },
@@ -235,11 +230,13 @@ const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
 root.render(
-  <AuthProvider>
-    <QueryClientProvider client={queryClient}>
-      <RouterProvider router={router} />
-    </QueryClientProvider>
-  </AuthProvider>
+  <Provider store={store}>
+    <AuthProvider>
+      <QueryClientProvider client={queryClient}>
+        <RouterProvider router={router} />
+      </QueryClientProvider>
+    </AuthProvider>
+  </Provider>
 );
 
 reportWebVitals();

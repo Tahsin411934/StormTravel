@@ -1,29 +1,28 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useAccessory } from '../../utils/useAccessory';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { FaBangladeshiTakaSign } from 'react-icons/fa6';
 import { useAccessoriesByCategory } from '../../utils/useAccessoriesByCategory';
 import useScrollToTop from '../../Hook/useScrollToTop';
+import { useDispatch } from 'react-redux';
+import { addToCart } from '../../redux/cartSlice'; // Import Redux actions
 
-// Define a type for the product with a quantity
+// Define a type for the product
 type Product = {
   _id: string;
   productName: string;
   description: string;
   price: number;
   imgUrl: string;
-  discount?: number;
+  discount?: number; // Optional discount
   available: string;
-};
-
-type CartProduct = Product & {
-  quantity: number;
 };
 
 export const AccessoriesDetails = () => {
   const { id } = useParams<{ id: string }>();
   useScrollToTop();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   // Call hooks unconditionally at the top
   const { data, isLoading, error } = useAccessory(id!);
@@ -31,23 +30,25 @@ export const AccessoriesDetails = () => {
   const { relatedData, relatedLoading, relatedError } =
     useAccessoriesByCategory(category);
 
-  const handleBuyNow = (product: Product) => {
-    const buyNowProducts = [product]; // Add selected product to an array
-    console.log(buyNowProducts)
-    navigate('/Accessories/order-summary', { state: { cart: buyNowProducts } }); // Navigate with the selected product
+ // Handle "Buy Now" functionality
+const handleBuyNow = (product: Product) => {
+  const buyNowProduct = {
+    ...product,
+    discount: product.discount || 0, // Default discount to 0 if undefined
+    quantity: 1,
   };
+  navigate('/Accessories/order-summary', { state: { cart: [buyNowProduct] } }); // Fixed syntax
+};
 
-  const addToCart = (product: Product) => {
-    const cart: CartProduct[] = JSON.parse(localStorage.getItem('cart') || '[]');
-    const existingProduct = cart.find((item) => item._id === product._id);
-
-    if (existingProduct) {
-      existingProduct.quantity += 1; // Increment quantity
-    } else {
-      cart.push({ ...product, quantity: 1 }); // Add new product with quantity 1
-    }
-
-    localStorage.setItem('cart', JSON.stringify(cart));
+  // Handle adding to cart using Redux
+  const handleAddToCart = (product: Product) => {
+    
+    const cartItem = {
+      ...product,
+      discount: product.discount || 0, // Default discount to 0 if undefined
+      quantity: 1,
+    };
+    dispatch(addToCart(cartItem)); // Dispatch Redux action
     alert('Product added to cart!');
   };
 
@@ -106,7 +107,7 @@ export const AccessoriesDetails = () => {
 
           <div className="flex space-x-4 mt-10">
             <button
-              onClick={() => addToCart(data)}
+              onClick={() => handleAddToCart(data)}
               className="px-4 py-2 bg-gray-800 text-white rounded hover:bg-black"
             >
               Add to Cart
