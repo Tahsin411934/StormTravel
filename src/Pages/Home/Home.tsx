@@ -19,6 +19,26 @@ const Home = () => {
         <YourTravelCompass></YourTravelCompass>
         <TourGuider />
         <Accessories></Accessories>
+         {/* Newsletter Subscription */}
+         <div className="container mx-auto w-[90%] mt-20 bg-blue-900 rounded-lg shadow-lg p-8 text-white text-center">
+            <h2 className="text-2xl font-bold mb-4">
+              Subscribe to Our Newsletter
+            </h2>
+            <p className="text-gray-300 mb-6">
+              Get the latest travel deals, tips, and news straight to your
+              inbox.
+            </p>
+            <div className="flex justify-center">
+              <input
+                type="email"
+                placeholder="Enter your email"
+                className="w-64 px-4 py-2 rounded-l-lg focus:outline-none text-gray-800"
+              />
+              <button className="bg-yellow-400 text-blue-950 px-6 py-2 rounded-r-lg hover:bg-yellow-500 transition-all duration-300">
+                Subscribe
+              </button>
+            </div>
+          </div>
         <PayWith></PayWith>
       </div>
 

@@ -199,6 +199,19 @@ const Sidebar: React.FC = () => {
               <ul className="pl-6 mt-2 space-y-2">
                 <li>
                   <NavLink
+                    to="/dashboard/Categories"
+                    className={({ isActive }) =>
+                      `flex items-center p-2 rounded-lg transition-colors ${
+                        isActive ? "bg-blue-600 text-white" : "hover:bg-gray-700 hover:text-white"
+                      }`
+                    }
+                  >
+                    <FaPlusCircle className="w-4 h-4 mr-2" />
+                    <span>Manage Categories</span>
+                  </NavLink>
+                  </li>
+                <li>
+                  <NavLink
                     to="/dashboard/AddAccessries"
                     className={({ isActive }) =>
                       `flex items-center p-2 rounded-lg transition-colors ${

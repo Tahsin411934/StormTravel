@@ -1,11 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useFetchData } from '../../Hook/useFeatchData';
 import { FaBangladeshiTakaSign, FaCartPlus, FaEye } from 'react-icons/fa6'; // Import icons
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux'; // Import useDispatch and useSelector
 import { addToCart } from '../../redux/cartSlice'; // Import addToCart action
 import { RootState } from '../../redux/store'; // Import RootState for type safety
-
+import { axiosSecure } from '../../Hook/useAxiouSecure'; // Import axiosSecure for API calls
+import { FloatingCart } from '../../Components/Cart/FloatingCart';
 import {
     FaUmbrellaBeach,
     FaSuitcaseRolling,
@@ -14,16 +15,6 @@ import {
     FaPlug,
     FaLuggageCart,
 } from 'react-icons/fa';
-import { FloatingCart } from '../../Components/Cart/FloatingCart';
-const categories = [
-    { id: 1, name: 'Pack', icon: <FaBoxOpen /> },
-    { id: 2, name: 'Packing Organizers', icon: <FaBoxOpen /> },
-    { id: 3, name: 'Travel Pillows', icon: <FaCouch /> },
-    { id: 4, name: 'Travel Bags', icon: <FaSuitcaseRolling /> },
-    { id: 5, name: 'cable', icon: <FaPlug /> },
-    { id: 6, name: 'Luggage', icon: <FaLuggageCart /> },
-];
-
 interface AccessoryItem {
     _id: string;
     productName: string;
@@ -36,10 +27,30 @@ interface AccessoryItem {
     description: string; // Add description to match CartItem type
 }
 
+interface Category {
+    _id: string;
+    category_name: string;
+}
+
 export const Shop: React.FC = () => {
-    const { data } = useFetchData() as { data: AccessoryItem[] | undefined };
+    const { data: accessories } = useFetchData() as { data: AccessoryItem[] | undefined };
+    const [categories, setCategories] = useState<Category[]>([]);
     const [currentIndex, setCurrentIndex] = useState(0);
     const dispatch = useDispatch(); // Initialize dispatch
+
+    // Fetch categories from the database
+    useEffect(() => {
+        const fetchCategories = async () => {
+            try {
+                const response = await axiosSecure.get('/api/categories');
+                setCategories(response.data);
+            } catch (error) {
+                console.error('Error fetching categories:', error);
+            }
+        };
+
+        fetchCategories();
+    }, []);
 
     const handlePrev = () => {
         setCurrentIndex((prevIndex) => (prevIndex === 0 ? categories.length - 5 : prevIndex - 1));
@@ -70,10 +81,13 @@ export const Shop: React.FC = () => {
             <div className="relative">
                 <div className="flex items-center w-[85%] mx-auto space-x-4">
                     {visibleCategories.map((category) => (
-                        <Link to={`/Accessories/${category.name}`} key={category.id}>
+                        <Link to={`/Accessories/${category.category_name}`} key={category._id}>
                             <div className="flex h-36 flex-col items-center justify-center space-y-2 p-8 bg-green-100 rounded-lg shadow-lg hover:bg-green-200 cursor-pointer w-[200px]">
-                                <div className="text-4xl text-[#024B90]">{category.icon}</div>
-                                <h3 className="text-lg font-semibold text-gray-700">{category.name}</h3>
+                                <div className="text-4xl text-[#024B90]">
+                                    {/* You can add icons dynamically based on category_name if needed */}
+                                    {category.category_name === 'Luggage' ? <FaLuggageCart /> : <FaBoxOpen />}
+                                </div>
+                                <h3 className="text-lg font-semibold text-gray-700">{category.category_name}</h3>
                             </div>
                         </Link>
                     ))}
@@ -97,7 +111,7 @@ export const Shop: React.FC = () => {
                 <h1>Travel Accessories</h1>
             </div>
             <div className="lg:grid grid-cols-3 gap-5 relative">
-                {data?.map((item, index) => (
+                {accessories?.map((item, index) => (
                     <div key={index}>
                         <div className="hover:bg-green-100 card bg-base-100 shadow-xl relative">
                             <figure className="h-64 overflow-hidden">

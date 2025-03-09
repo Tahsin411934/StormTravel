@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
 import axios from "axios";
 import { axiosSecure } from "../../../Hook/useAxiouSecure";
-// import { axiosSecure } from "../../../Hook/useAxiouSecure";
+import { useGetCategories } from "../../../utils/useGetCtegories";
+// Adjust the import path
 
 interface AccessoryDetails {
     productName: string;
@@ -12,6 +13,11 @@ interface AccessoryDetails {
     description: string;
     imgUrl: string;
     category: string;
+}
+
+interface Category {
+    _id: string;
+    category_name: string;
 }
 
 const imageHostingApi = 'https://api.imgbb.com/1/upload?key=fe740aa3ec54bedc61f2e7320ed14d7d';
@@ -24,6 +30,17 @@ const AccessoriesForm: React.FC = () => {
         setValue,
         formState: { errors },
     } = useForm<AccessoryDetails>();
+
+    const [categories, setCategories] = useState<Category[]>([]);
+
+    // Use the useGetCategories hook
+    const { data: fetchedCategories, isLoading, error } = useGetCategories();
+
+    useEffect(() => {
+        if (fetchedCategories) {
+            setCategories(fetchedCategories);
+        }
+    }, [fetchedCategories]);
 
     const onSubmit = async (data: AccessoryDetails) => {
         try {
@@ -68,6 +85,14 @@ const AccessoriesForm: React.FC = () => {
             }
         }
     };
+
+    if (isLoading) {
+        return <div className="text-center py-4">Loading categories...</div>;
+    }
+
+    if (error) {
+        return <div className="text-center py-4 text-red-500">Error loading categories: {error.message}</div>;
+    }
 
     return (
         <div className="w-full max-w-2xl mx-auto mt-4 shadow-lg p-8 rounded-lg bg-white border border-blue-200">
@@ -116,19 +141,18 @@ const AccessoriesForm: React.FC = () => {
 
                     <div className="form-control w-full">
                         <label className="label">
-                            <span className="label-text">category</span>
+                            <span className="label-text">Category</span>
                         </label>
                         <select
                             className="select select-bordered w-full px-4 py-2"
-                            {...register("category", { required: "category is required" })}
+                            {...register("category", { required: "Category is required" })}
                         >
                             <option value="">Select category</option>
-                            <option value="Luggage">Luggage</option>
-                            <option value="cable">Cable</option>
-                            <option value="Travel Bags">Travel Bags</option>
-                            <option value="Travel Pillows">Travel Pillows</option>
-                            <option value="Packing Organizers">Packing Organizers</option>
-                            <option value="Pack">Pack</option>
+                            {categories.map((category) => (
+                                <option key={category._id} value={category.category_name}>
+                                    {category.category_name}
+                                </option>
+                            ))}
                         </select>
                         {errors.category && <p className="text-red-500">{errors.category.message}</p>}
                     </div>

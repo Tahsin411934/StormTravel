@@ -5,10 +5,8 @@ import { Outlet } from 'react-router-dom'
 const ProfileLayoyt : React.FC = () => {
   return (
     <div className='grid grid-cols-10 max-w-[1400px]'>
-      <div className='col-span-2'>
-        <ProfileSidebar></ProfileSidebar>
-      </div>
-      <div  className='col-span-8 text-center'>
+      
+      <div  className='col-span-10 text-center'>
 
         <Outlet></Outlet>
       </div>

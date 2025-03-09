@@ -46,6 +46,7 @@ import FlightSchedule from "./Pages/Dashboard/AddFlight/FlightSchedule";
 import TrainSchedule from "./Pages/Dashboard/TrainSchedule";
 import { Provider } from "react-redux";
 import { store } from "./redux/store";
+import CategoriesTable from "./Pages/Dashboard/CategoriesTable/CategoriesTable";
 
 const router = createBrowserRouter([
   {
@@ -207,6 +208,10 @@ const router = createBrowserRouter([
       {
         path: "/dashboard/showAccessories",
         element: <AccessoriesTable />,
+      },
+      {
+        path: "/dashboard/Categories",
+        element: <CategoriesTable />,
       },
       {
         path: "/dashboard/ShowTourGuide",
