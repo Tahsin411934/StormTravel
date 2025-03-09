@@ -31,7 +31,7 @@ const PackageComponent: React.FC = () => {
 
   return (
     <div className="w-[90%] mx-auto font-Poppins max-w-[1400px]">
-      <div className="pt-16 pb-6 text-3xl font-bold">Top Package Deals</div>
+      <div className="pt-16 pb-6 text-2xl font-bold">Top Package Deals</div>
       <Swiper
         spaceBetween={10}
         slidesPerView={1.5} // Default for small screens
@@ -90,7 +90,7 @@ const PackageComponent: React.FC = () => {
                 </div>
 
                 {/* Package Name Below the Image */}
-                <h1 className="text-lg font-bold mt-2 text-center sm:text-xl">
+                <h1 className="text-lg font-semibold mt-2 text-center sm:text-lg">
                   {packageItem.name}
                 </h1>
               </div>

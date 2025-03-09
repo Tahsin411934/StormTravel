@@ -2,7 +2,7 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import { GoArrowSwitch } from "react-icons/go";
 import { MdOutlineUpdate } from "react-icons/md";
-import {  useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 type FormData = {
   from: string;
@@ -21,30 +21,31 @@ const SearchbarForFlight: React.FC = () => {
       selectedClass: "ac", // Set default class to "AC"
     },
   });
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const onSubmit = (data: FormData) => {
-    console.log('Submitting form with data:', data);
-  
+    console.log("Submitting form with data:", data);
+
     const from = data?.from || null;
     const to = data?.to || null;
     const departureTime = data?.departureDate || null;
     const returnDate = data?.returnDate || null;
-  console.log(from)
-    navigate(`/flightSearchResult?from=${from}&to=${to}&departureTime=${departureTime}&returnDate=${returnDate}&travelers=${data.travelers}&class=${data.selectedClass}`);
+    console.log(from);
+    navigate(
+      `/flightSearchResult?from=${from}&to=${to}&departureTime=${departureTime}&returnDate=${returnDate}&travelers=${data.travelers}&class=${data.selectedClass}`
+    );
   };
-  
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="px-4">
-      <div className="flex flex-col md:flex-row items-center justify-between">
-        {/* Trip Type Selection */}
-        <div className="mb-4 flex space-x-2">
+    <form onSubmit={handleSubmit(onSubmit)} className="px-6 bg-white rounded-lg shadow-md">
+      {/* Trip Type Selection */}
+      <div className="flex flex-col md:flex-row items-center justify-between mb-6">
+        <div className="flex space-x-2 mb-4 md:mb-0">
           <label
-            className={`p-2 rounded-md ${
+            className={`flex items-center p-2 rounded-md cursor-pointer transition-colors duration-200 ${
               watch("tripType") === "oneway"
                 ? "bg-blue-900 text-white"
-                : "bg-blue-100"
+                : "bg-gray-100 hover:bg-gray-200"
             }`}
           >
             <input
@@ -56,10 +57,10 @@ const SearchbarForFlight: React.FC = () => {
             One-way
           </label>
           <label
-            className={`p-2 rounded-md ${
+            className={`flex items-center p-2 rounded-md cursor-pointer transition-colors duration-200 ${
               watch("tripType") === "round"
                 ? "bg-blue-900 text-white"
-                : "bg-blue-100"
+                : "bg-gray-100 hover:bg-gray-200"
             }`}
           >
             <input
@@ -72,92 +73,78 @@ const SearchbarForFlight: React.FC = () => {
           </label>
         </div>
 
-        <div className="flex items-center gap-4 w-full md:w-auto">
-          {/* Class Selection */}
-          <div className="mb-4 w-full md:w-auto">
-            <select
-              {...register("selectedClass")}
-              className="border text-blue-800 font-semibold border-blue-100 p-2 rounded w-full"
-            >
-              <option value="ac">Economy Class</option>
-              <option value="non-ac">Premium Economy</option>
-              <option value="non-ac">First Class</option>
-            </select>
-          </div>
+        {/* Travelers and Class Selection */}
+        <div className="flex flex-col md:flex-row gap-4 w-full md:w-auto">
+          <select
+            {...register("selectedClass")}
+            className="border text-blue-900 font-semibold border-gray-300 p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 w-full md:w-auto"
+          >
+            <option value="ac">Economy Class</option>
+            <option value="non-ac">Premium Economy</option>
+            <option value="non-ac">First Class</option>
+          </select>
 
-          {/* Traveler */}
-          <div className="mb-4 w-full md:w-auto">
-            <input
-              type="number"
-              {...register("travelers", { valueAsNumber: true, min: 1 })}
-              className="border bg-blue-100 border-gray-300 p-2 rounded w-full"
-              placeholder="1 traveler"
-            />
-          </div>
+          <input
+            type="number"
+            {...register("travelers", { valueAsNumber: true, min: 1 })}
+            className="border bg-gray-100 border-gray-300 p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 w-full md:w-auto"
+            placeholder="1 traveler"
+          />
         </div>
       </div>
 
-      <div className="grid grid-cols-1 grid-cols-11 gap-2 md:gap-4 mb-4">
-        {/* First City Selection */}
+      {/* City and Date Selection in One Line */}
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
+        {/* Departure City */}
         <select
           {...register("from")}
-          className="border border-gray-300 p-2 col-span-5 rounded bg-white"
+          className="border border-gray-300 p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
         >
           <option value="" disabled>
-            Select departure city
+            Departure City
           </option>
           <option value="Dhaka">Dhaka</option>
           <option value="Chattogram">Chattogram</option>
-          <option value="cox">Cox'sbazar</option>
+          <option value="cox">Cox's Bazar</option>
           <option value="Sylhet">Sylhet</option>
         </select>
 
-        {/* Switch Icon */}
-        <div className="flex items-center justify-center col-span-1">
-          <GoArrowSwitch size={20} className="text-blue-500" />
-        </div>
-
-        {/* Second City Selection */}
+        {/* Destination City */}
         <select
           {...register("to")}
-          className="border border-gray-300 p-2 col-span-5 rounded bg-white"
+          className="border border-gray-300 p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
         >
           <option value="" disabled>
-            Select destination city
+            Destination City
           </option>
           <option value="Dhaka">Dhaka</option>
           <option value="Chattogram">Chattogram</option>
-          <option value="cox">Cox'sbazar</option>
+          <option value="cox">Cox's Bazar</option>
           <option value="Sylhet">Sylhet</option>
         </select>
-      </div>
 
-      {/* Date Selection */}
-      <div className="grid  grid-cols-11 gap-2 md:gap-4 mb-4">
+        {/* Departure Date */}
         <input
           type="date"
           {...register("departureDate")}
-          className="border border-gray-300 p-2 col-span-5 rounded w-full"
+          className="border border-gray-300 p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
 
-        {/* Switch Icon */}
-        <div className="flex items-center justify-center col-span-1">
-          <MdOutlineUpdate size={20} className="text-blue-500" />
-        </div>
-
+        {/* Return Date */}
         <input
           type="date"
           {...register("returnDate")}
-          className="border border-gray-300 col-span-5 p-2 rounded w-full"
+          className="border border-gray-300 p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
           disabled={watch("tripType") === "oneway"}
         />
       </div>
 
+      {/* Submit Button */}
       <button
         type="submit"
-        className="bg-blue-500 text-white py-2 px-4 rounded w-full"
+        className="bg-blue-900 text-white py-3 px-6 rounded-lg w-full hover:bg-blue-800 transition-colors duration-200"
       >
-       Search
+        Search Flights
       </button>
     </form>
   );

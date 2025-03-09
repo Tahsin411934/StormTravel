@@ -32,7 +32,7 @@ const OurPackages: React.FC = () => {
 
   return (
     <div className="w-[90%] mx-auto font-Poppins max-w-[1400px]">
-      <div className="pt-16 pb-6 text-3xl font-bold">Top Package Deals</div>
+      <div className="pt-16 pb-6 text-xl font-bold">Top Package Deals</div>
       <Swiper
         spaceBetween={10}
         slidesPerView={3} // Default for larger screens

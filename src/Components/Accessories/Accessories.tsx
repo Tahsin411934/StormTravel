@@ -33,56 +33,74 @@ export const Accessories: React.FC = () => {
 
   return (
     <div className='font-Poppins w-[90%] mx-auto pt-20'>
-      <div className='font-Poppins font-bold text-3xl'>
+      <div className='font-Poppins font-bold text-2xl mb-8'>
         <h1>Travel Accessories</h1>
       </div>
-      <div className='lg:grid grid-cols-3 gap-5 relative'>
+      <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6'>
         {data?.slice(0, 6).map((item, index) => (
-          <div key={index}>
-            <div className="hover:bg-green-100 card bg-base-100 shadow-xl">
-              <figure>
-                <img src={item.imgUrl} alt={item.productName} />
-              </figure>
-              <div className="card-body">
-                <h2 className="card-title">
-                  {item.productName}
-                  <div className="badge badge-secondary">{item.available}</div>
-                </h2>
-                <div className="card-actions">
-                  <del className='flex items-center text-slate-500'>
-                    <FaBangladeshiTakaSign />{item.price}
-                  </del>
-                  <span className='text-[#024B90] font-semibold flex items-center'>
-                    <FaBangladeshiTakaSign /> {item.finalPrice}
-                  </span>
-                </div>
-                <div className="card-actions justify-end">
-                  <div className="badge badge-outline">Fashion</div>
-                  <div className="badge badge-outline">Products</div>
-                </div>
-                <div className='absolute top-10'>
-                  <button className="bg-[#024B90] text-white rounded-full p-3">
-                    {item.discount}% OFF
-                  </button>
-                </div>
+          <div key={index} className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
+            {/* Image Section */}
+            <figure className="relative">
+              <img
+                src={item.imgUrl}
+                alt={item.productName}
+                className="w-full h-48 object-cover" // Reduced image size
+              />
+              {/* Discount Badge */}
+              <div className="absolute top-4 right-4">
+                <span className="bg-[#024B90] text-white text-sm font-semibold px-3 py-1 rounded-full">
+                  {item.discount}% OFF
+                </span>
+              </div>
+            </figure>
 
-                {/* Add to Cart and See Details Buttons */}
-                <div className="flex justify-between mt-4 space-x-2">
-                  <button
-                    onClick={() => handleAddToCart(item)} // Add item to cart on click
-                    className="bg-[#024B90] text-white px-4 py-2 rounded-full flex items-center space-x-2 hover:bg-[#03356b] transition duration-200 flex-1"
-                  >
-                    <FaCartPlus className="text-lg" /> {/* Shopping cart icon */}
-                    <span>Add to Cart</span>
-                  </button>
-                  <Link
-                    to={`/Accessories/${item._id}/${item.category}`} // Link to details page
-                    className="bg-gray-600 text-white px-4 py-2 rounded-full flex items-center space-x-2 hover:bg-gray-700 transition duration-200 flex-1"
-                  >
-                    <FaEye className="text-lg" /> {/* Eye icon */}
-                    <span>See Details</span>
-                  </Link>
-                </div>
+            {/* Product Details */}
+            <div className="p-6">
+              <h2 className="text-xl font-semibold mb-2">
+                {item.productName}
+                <span className="ml-2 text-sm text-green-600 bg-green-100 px-2 py-1 rounded-full">
+                  {item.available}
+                </span>
+              </h2>
+
+              {/* Price Section */}
+              <div className="flex items-center space-x-4 mb-4">
+                <del className="text-slate-500 flex items-center">
+                  <FaBangladeshiTakaSign className="mr-1" />
+                  {item.price}
+                </del>
+                <span className="text-[#024B90] font-semibold flex items-center">
+                  <FaBangladeshiTakaSign className="mr-1" />
+                  {item.finalPrice}
+                </span>
+              </div>
+
+              {/* Category Badges */}
+              <div className="flex space-x-2 mb-4">
+                <span className="text-sm bg-gray-100 text-gray-700 px-3 py-1 rounded-full">
+                  Fashion
+                </span>
+                <span className="text-sm bg-gray-100 text-gray-700 px-3 py-1 rounded-full">
+                  Products
+                </span>
+              </div>
+
+              {/* Add to Cart and See Details Buttons */}
+              <div className="flex space-x-4">
+                <button
+                  onClick={() => handleAddToCart(item)} // Add item to cart on click
+                  className="flex-1 bg-[#024B90] text-white px-4 py-2 rounded-full flex items-center justify-center space-x-2 hover:bg-[#03356b] transition duration-200"
+                >
+                  <FaCartPlus className="text-lg" /> {/* Shopping cart icon */}
+                  <span>Add to Cart</span>
+                </button>
+                <Link
+                  to={`/Accessories/${item._id}/${item.category}`} // Link to details page
+                  className="flex-1 bg-gray-600 text-white px-4 py-2 rounded-full flex items-center justify-center space-x-2 hover:bg-gray-700 transition duration-200"
+                >
+                  <FaEye className="text-lg" /> {/* Eye icon */}
+                  <span>See Details</span>
+                </Link>
               </div>
             </div>
           </div>

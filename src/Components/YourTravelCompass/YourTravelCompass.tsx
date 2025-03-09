@@ -9,8 +9,8 @@ import OurPackages from './OurPackages';
 export const YourTravelCompass = () => {
     const [activeTab, setActiveTab] = useState("flight");
     return (
-        <div className='w-[90%] mx-auto pb-8'>
-            <div className="pt-16 pb-6  text-4xl font-bold">
+        <div className='w-[90%] mx-auto pb-8 font-Poppins'>
+            <div className="pt-16 pb-6  text-2xl font-bold">
                 Your Travel Compass
             </div>
             <div className=' border-t border-l border-r border-gray-400   rounded-xl'>

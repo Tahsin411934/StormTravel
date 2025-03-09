@@ -20,8 +20,8 @@ export const TourGuider: React.FC = () => {
     return <div>Error: {error.message}</div>;
   }
   return (
-    <div className='w-[90%] mx-auto'>
-      <div className="pt-16 pb-6  text-4xl font-bold text-gray-800">
+    <div className='w-[90%] mx-auto font-Poppins'>
+      <div className="pt-16 pb-6  text-2xl font-bold text-gray-800">
         Meet Our Tour Guides
       </div>
 
