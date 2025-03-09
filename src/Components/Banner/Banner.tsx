@@ -10,7 +10,7 @@ const Banner = () => {
   return (
     <div>
       {/* Video Banner Section */}
-      <div className="relative font-Murecho -z-10 w-full h-56 sm:h-64 md:h-80 overflow-hidden bg-black ">
+      <div className="relative font-Poppins -z-10 w-full h-56 sm:h-64 md:h-80 overflow-hidden bg-black ">
         <video
           autoPlay
           muted
@@ -25,11 +25,11 @@ const Banner = () => {
         <div className="absolute top-0 left-0 w-full h-full bg-black opacity-50"></div>
 
         {/* Text Overlay */}
-        <div className="relative z-10 flex flex-col items-center -mt-8 lg:items-start lg:w-[80%] lg:mx-auto justify-center h-full text-white px-4">
-          <h1 className="sm:text-3xl  ">
-            Welcome to <span className="text-2xl font-bold md:text-4xl ">StormTravel!</span>
+        <div className="relative z-10 flex  flex-col items-center -mt-8 lg:items-start lg:w-[80%] lg:mx-auto justify-center h-full text-white px-4">
+          <h1 className="sm:text-3xl font-Prata ">
+            Welcome to <span className="text-2xl font-semibold md:text-4xl font-Poppins">StormTravel!</span>
           </h1>
-          <p className="mt-2 text-sm sm:text-lg md:text-lg font-semibold">
+          <p className="mt-2 text-sm sm:text-lg md:text-base font-semibold">
             Find Flights, Bus, Hotels, Visa & Holidays
           </p>
         </div>
