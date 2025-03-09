@@ -27,13 +27,17 @@ const Sidebar: React.FC = () => {
       <div className="h-full p-4">
         {/* Logo Section */}
         <Link to="/">
-        <div className=" flex items-center font-GreatVibes justify-center italic text-[#1b82ff] text-xl font-bold">
-            <img src="https://i.ibb.co.com/pBVCHb6n/logo.png" alt="Logo" className="h-10 w-10" />
+          <div className=" flex items-center font-GreatVibes justify-center italic text-[#1b82ff] text-xl font-bold">
+            <img
+              src="https://i.ibb.co.com/pBVCHb6n/logo.png"
+              alt="Logo"
+              className="h-10 w-10"
+            />
             <span className="text-3xl mt-2 font-semibold transform: skew(-10deg)">
               StormTravel
             </span>
           </div>
-          </Link>
+        </Link>
         <hr className="border-gray-300 mb-4" />
 
         <div className="space-y-2">
@@ -43,7 +47,9 @@ const Sidebar: React.FC = () => {
             end
             className={({ isActive }) =>
               `flex items-center p-2 rounded-lg transition-colors ${
-                isActive ? "bg-blue-600 text-white" : "hover:bg-gray-700 hover:text-white"
+                isActive
+                  ? "bg-blue-600 text-white"
+                  : "hover:bg-gray-700 hover:text-white"
               }`
             }
           >
@@ -61,16 +67,37 @@ const Sidebar: React.FC = () => {
                 <MdDirectionsBus className="w-5 h-5 mr-2" />
                 <span>Bus</span>
               </div>
-              <FaAngleDown className={`transition-transform ${isBusOpen ? "rotate-180" : ""}`} />
+              <FaAngleDown
+                className={`transition-transform ${
+                  isBusOpen ? "rotate-180" : ""
+                }`}
+              />
             </div>
             {isBusOpen && (
               <ul className="pl-6 mt-2 space-y-2">
                 <li>
                   <NavLink
+                    to="/dashboard/Add-bus"
+                    className={({ isActive }) =>
+                      `flex items-center p-2 rounded-lg transition-colors ${
+                        isActive
+                          ? "bg-blue-600 text-white"
+                          : "hover:bg-gray-700 hover:text-white"
+                      }`
+                    }
+                  >
+                    <FaPlusCircle className="w-4 h-4 mr-2" />
+                    <span>Add New Bus</span>
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink
                     to="/dashboard/AddBusSchedule"
                     className={({ isActive }) =>
                       `flex items-center p-2 rounded-lg transition-colors ${
-                        isActive ? "bg-blue-600 text-white" : "hover:bg-gray-700 hover:text-white"
+                        isActive
+                          ? "bg-blue-600 text-white"
+                          : "hover:bg-gray-700 hover:text-white"
                       }`
                     }
                   >
@@ -78,12 +105,15 @@ const Sidebar: React.FC = () => {
                     <span>Add Bus Schedule</span>
                   </NavLink>
                 </li>
+
                 <li>
                   <NavLink
                     to="/dashboard/BusSchedule"
                     className={({ isActive }) =>
                       `flex items-center p-2 rounded-lg transition-colors ${
-                        isActive ? "bg-blue-600 text-white" : "hover:bg-gray-700 hover:text-white"
+                        isActive
+                          ? "bg-blue-600 text-white"
+                          : "hover:bg-gray-700 hover:text-white"
                       }`
                     }
                   >
@@ -105,7 +135,11 @@ const Sidebar: React.FC = () => {
                 <MdTrain className="w-5 h-5 mr-2" />
                 <span>Train</span>
               </div>
-              <FaAngleDown className={`transition-transform ${isTrainOpen ? "rotate-180" : ""}`} />
+              <FaAngleDown
+                className={`transition-transform ${
+                  isTrainOpen ? "rotate-180" : ""
+                }`}
+              />
             </div>
             {isTrainOpen && (
               <ul className="pl-6 mt-2 space-y-2">
@@ -114,7 +148,9 @@ const Sidebar: React.FC = () => {
                     to="/dashboard/AddTrainSchedule"
                     className={({ isActive }) =>
                       `flex items-center p-2 rounded-lg transition-colors ${
-                        isActive ? "bg-blue-600 text-white" : "hover:bg-gray-700 hover:text-white"
+                        isActive
+                          ? "bg-blue-600 text-white"
+                          : "hover:bg-gray-700 hover:text-white"
                       }`
                     }
                   >
@@ -127,7 +163,9 @@ const Sidebar: React.FC = () => {
                     to="/dashboard/TrainSchedule"
                     className={({ isActive }) =>
                       `flex items-center p-2 rounded-lg transition-colors ${
-                        isActive ? "bg-blue-600 text-white" : "hover:bg-gray-700 hover:text-white"
+                        isActive
+                          ? "bg-blue-600 text-white"
+                          : "hover:bg-gray-700 hover:text-white"
                       }`
                     }
                   >
@@ -149,7 +187,11 @@ const Sidebar: React.FC = () => {
                 <MdFlight className="w-5 h-5 mr-2" />
                 <span>Flight</span>
               </div>
-              <FaAngleDown className={`transition-transform ${isFlightOpen ? "rotate-180" : ""}`} />
+              <FaAngleDown
+                className={`transition-transform ${
+                  isFlightOpen ? "rotate-180" : ""
+                }`}
+              />
             </div>
             {isFlightOpen && (
               <ul className="pl-6 mt-2 space-y-2">
@@ -158,7 +200,9 @@ const Sidebar: React.FC = () => {
                     to="/dashboard/AddFlightSchedule"
                     className={({ isActive }) =>
                       `flex items-center p-2 rounded-lg transition-colors ${
-                        isActive ? "bg-blue-600 text-white" : "hover:bg-gray-700 hover:text-white"
+                        isActive
+                          ? "bg-blue-600 text-white"
+                          : "hover:bg-gray-700 hover:text-white"
                       }`
                     }
                   >
@@ -171,7 +215,9 @@ const Sidebar: React.FC = () => {
                     to="/dashboard/FlightSchedule"
                     className={({ isActive }) =>
                       `flex items-center p-2 rounded-lg transition-colors ${
-                        isActive ? "bg-blue-600 text-white" : "hover:bg-gray-700 hover:text-white"
+                        isActive
+                          ? "bg-blue-600 text-white"
+                          : "hover:bg-gray-700 hover:text-white"
                       }`
                     }
                   >
@@ -193,7 +239,11 @@ const Sidebar: React.FC = () => {
                 <MdBackpack className="w-5 h-5 mr-2" />
                 <span>Accessories</span>
               </div>
-              <FaAngleDown className={`transition-transform ${isAccessoriesOpen ? "rotate-180" : ""}`} />
+              <FaAngleDown
+                className={`transition-transform ${
+                  isAccessoriesOpen ? "rotate-180" : ""
+                }`}
+              />
             </div>
             {isAccessoriesOpen && (
               <ul className="pl-6 mt-2 space-y-2">
@@ -202,20 +252,24 @@ const Sidebar: React.FC = () => {
                     to="/dashboard/Categories"
                     className={({ isActive }) =>
                       `flex items-center p-2 rounded-lg transition-colors ${
-                        isActive ? "bg-blue-600 text-white" : "hover:bg-gray-700 hover:text-white"
+                        isActive
+                          ? "bg-blue-600 text-white"
+                          : "hover:bg-gray-700 hover:text-white"
                       }`
                     }
                   >
                     <FaPlusCircle className="w-4 h-4 mr-2" />
                     <span>Manage Categories</span>
                   </NavLink>
-                  </li>
+                </li>
                 <li>
                   <NavLink
                     to="/dashboard/AddAccessries"
                     className={({ isActive }) =>
                       `flex items-center p-2 rounded-lg transition-colors ${
-                        isActive ? "bg-blue-600 text-white" : "hover:bg-gray-700 hover:text-white"
+                        isActive
+                          ? "bg-blue-600 text-white"
+                          : "hover:bg-gray-700 hover:text-white"
                       }`
                     }
                   >
@@ -228,7 +282,9 @@ const Sidebar: React.FC = () => {
                     to="/dashboard/ShowAccessories"
                     className={({ isActive }) =>
                       `flex items-center p-2 rounded-lg transition-colors ${
-                        isActive ? "bg-blue-600 text-white" : "hover:bg-gray-700 hover:text-white"
+                        isActive
+                          ? "bg-blue-600 text-white"
+                          : "hover:bg-gray-700 hover:text-white"
                       }`
                     }
                   >
@@ -250,7 +306,11 @@ const Sidebar: React.FC = () => {
                 <MdBackpack className="w-5 h-5 mr-2" />
                 <span>Packages</span>
               </div>
-              <FaAngleDown className={`transition-transform ${isPackagesOpen ? "rotate-180" : ""}`} />
+              <FaAngleDown
+                className={`transition-transform ${
+                  isPackagesOpen ? "rotate-180" : ""
+                }`}
+              />
             </div>
             {isPackagesOpen && (
               <ul className="pl-6 mt-2 space-y-2">
@@ -259,7 +319,9 @@ const Sidebar: React.FC = () => {
                     to="/dashboard/AddPackage"
                     className={({ isActive }) =>
                       `flex items-center p-2 rounded-lg transition-colors ${
-                        isActive ? "bg-blue-600 text-white" : "hover:bg-gray-700 hover:text-white"
+                        isActive
+                          ? "bg-blue-600 text-white"
+                          : "hover:bg-gray-700 hover:text-white"
                       }`
                     }
                   >
@@ -272,7 +334,9 @@ const Sidebar: React.FC = () => {
                     to="/dashboard/ShowPackage"
                     className={({ isActive }) =>
                       `flex items-center p-2 rounded-lg transition-colors ${
-                        isActive ? "bg-blue-600 text-white" : "hover:bg-gray-700 hover:text-white"
+                        isActive
+                          ? "bg-blue-600 text-white"
+                          : "hover:bg-gray-700 hover:text-white"
                       }`
                     }
                   >
@@ -294,7 +358,11 @@ const Sidebar: React.FC = () => {
                 <MdTour className="w-5 h-5 mr-2" />
                 <span>Tour Guide</span>
               </div>
-              <FaAngleDown className={`transition-transform ${isTourGuideOpen ? "rotate-180" : ""}`} />
+              <FaAngleDown
+                className={`transition-transform ${
+                  isTourGuideOpen ? "rotate-180" : ""
+                }`}
+              />
             </div>
             {isTourGuideOpen && (
               <ul className="pl-6 mt-2 space-y-2">
@@ -303,7 +371,9 @@ const Sidebar: React.FC = () => {
                     to="/dashboard/AddTourGuider"
                     className={({ isActive }) =>
                       `flex items-center p-2 rounded-lg transition-colors ${
-                        isActive ? "bg-blue-600 text-white" : "hover:bg-gray-700 hover:text-white"
+                        isActive
+                          ? "bg-blue-600 text-white"
+                          : "hover:bg-gray-700 hover:text-white"
                       }`
                     }
                   >
@@ -316,7 +386,9 @@ const Sidebar: React.FC = () => {
                     to="/dashboard/ShowTourGuide"
                     className={({ isActive }) =>
                       `flex items-center p-2 rounded-lg transition-colors ${
-                        isActive ? "bg-blue-600 text-white" : "hover:bg-gray-700 hover:text-white"
+                        isActive
+                          ? "bg-blue-600 text-white"
+                          : "hover:bg-gray-700 hover:text-white"
                       }`
                     }
                   >
@@ -338,7 +410,11 @@ const Sidebar: React.FC = () => {
                 <MdShoppingCart className="w-5 h-5 mr-2" />
                 <span>Order</span>
               </div>
-              <FaAngleDown className={`transition-transform ${isOrderOpen ? "rotate-180" : ""}`} />
+              <FaAngleDown
+                className={`transition-transform ${
+                  isOrderOpen ? "rotate-180" : ""
+                }`}
+              />
             </div>
             {isOrderOpen && (
               <ul className="pl-6 mt-2 space-y-2">
@@ -347,7 +423,9 @@ const Sidebar: React.FC = () => {
                     to="/dashboard/AddOrder"
                     className={({ isActive }) =>
                       `flex items-center p-2 rounded-lg transition-colors ${
-                        isActive ? "bg-blue-600 text-white" : "hover:bg-gray-700 hover:text-white"
+                        isActive
+                          ? "bg-blue-600 text-white"
+                          : "hover:bg-gray-700 hover:text-white"
                       }`
                     }
                   >
@@ -360,7 +438,9 @@ const Sidebar: React.FC = () => {
                     to="/dashboard/ShowOrder"
                     className={({ isActive }) =>
                       `flex items-center p-2 rounded-lg transition-colors ${
-                        isActive ? "bg-blue-600 text-white" : "hover:bg-gray-700 hover:text-white"
+                        isActive
+                          ? "bg-blue-600 text-white"
+                          : "hover:bg-gray-700 hover:text-white"
                       }`
                     }
                   >
@@ -382,7 +462,11 @@ const Sidebar: React.FC = () => {
                 <MdSettings className="w-5 h-5 mr-2" />
                 <span>Settings</span>
               </div>
-              <FaAngleDown className={`transition-transform ${isSettingsOpen ? "rotate-180" : ""}`} />
+              <FaAngleDown
+                className={`transition-transform ${
+                  isSettingsOpen ? "rotate-180" : ""
+                }`}
+              />
             </div>
             {isSettingsOpen && (
               <ul className="pl-6 mt-2 space-y-2">
@@ -391,7 +475,9 @@ const Sidebar: React.FC = () => {
                     to="/settings/profile"
                     className={({ isActive }) =>
                       `flex items-center p-2 rounded-lg transition-colors ${
-                        isActive ? "bg-blue-600 text-white" : "hover:bg-gray-700 hover:text-white"
+                        isActive
+                          ? "bg-blue-600 text-white"
+                          : "hover:bg-gray-700 hover:text-white"
                       }`
                     }
                   >
@@ -404,7 +490,9 @@ const Sidebar: React.FC = () => {
                     to="/settings/privacy"
                     className={({ isActive }) =>
                       `flex items-center p-2 rounded-lg transition-colors ${
-                        isActive ? "bg-blue-600 text-white" : "hover:bg-gray-700 hover:text-white"
+                        isActive
+                          ? "bg-blue-600 text-white"
+                          : "hover:bg-gray-700 hover:text-white"
                       }`
                     }
                   >

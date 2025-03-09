@@ -1,7 +1,9 @@
 import React from "react";
 import { useForm } from "react-hook-form";
-import { axiosSecure } from "../../../Hook/useAxiouSecure";
+
 import Swal from "sweetalert2"; // Import SweetAlert2
+import { useGetBus } from "../../../utils/useGetBus";
+import { axiosSecure } from "../../../Hook/useAxiouSecure";
 
 interface BusSchedule {
   busNumber: string;
@@ -20,9 +22,12 @@ const AddBusSchedule: React.FC = () => {
   const {
     register,
     handleSubmit,
-    reset, // Add reset function
+    reset,
     formState: { errors },
   } = useForm<BusSchedule>();
+
+  // Fetch bus data
+  const { data: buses, isLoading, error } = useGetBus();
 
   const onSubmit = async (data: BusSchedule) => {
     try {
@@ -45,8 +50,15 @@ const AddBusSchedule: React.FC = () => {
         confirmButtonText: 'OK'
       });
     }
-    console.log(data);
   };
+
+  if (isLoading) {
+    return <div className="text-center py-4 text-lg font-semibold text-blue-500">Loading buses...</div>;
+  }
+
+  if (error) {
+    return <div className="text-center py-4 text-lg font-semibold text-red-500">Error loading buses: {error.message}</div>;
+  }
 
   return (
     <div className="w-[60%] mt-1 mx-auto shadow-lg p-5 border border-blue-200">
@@ -55,64 +67,75 @@ const AddBusSchedule: React.FC = () => {
           Add New Bus Schedule
         </h2>
 
+        {/* Bus Number Dropdown */}
         <div className="form-control">
           <label className="label">
             <span className="label-text">Bus Number</span>
           </label>
-          <input
-            type="text"
-            placeholder="Bus Number"
+          <select
             className="input input-bordered"
             {...register("busNumber", { required: "Bus number is required" })}
-          />
+          >
+            <option value="" disabled>Select Bus Number</option>
+            {buses?.map((bus) => (
+              <option key={bus._id} value={bus.busNumber}>
+                {bus.busNumber}
+              </option>
+            ))}
+          </select>
           {errors.busNumber && <p className="text-red-500">{errors.busNumber.message}</p>}
         </div>
 
-        <div className="flex items-center gap-3 justify-center">
-          <div className="form-control w-full">
-            <label className="label">
-              <span className="label-text">Bus Name</span>
-            </label>
-            <input
-              type="text"
-              placeholder="Bus Name"
-              className="input input-bordered"
-              {...register("busName", { required: "Bus name is required" })}
-            />
-            {errors.busName && <p className="text-red-500">{errors.busName.message}</p>}
-          </div>
-
-          <div className="form-control w-full">
-            <label className="label" htmlFor="bus-class">
-              <span className="label-text">Class</span>
-            </label>
-            <select
-              id="bus-class"
-              className="input input-bordered"
-              {...register("class", { required: "Class is required" })}
-            >
-              <option value="">Select Class (AC/Non-AC)</option>
-              <option value="AC">AC</option>
-              <option value="Non-AC">Non-AC</option>
-            </select>
-            {errors.class && <p className="text-red-500">{errors.class.message}</p>}
-          </div>
+        {/* Bus Name Dropdown */}
+        <div className="form-control">
+          <label className="label">
+            <span className="label-text">Bus Name</span>
+          </label>
+          <select
+            className="input input-bordered"
+            {...register("busName", { required: "Bus name is required" })}
+          >
+            <option value="" disabled>Select Bus Name</option>
+            {buses?.map((bus) => (
+              <option key={bus._id} value={bus.busName}>
+                {bus.busName}
+              </option>
+            ))}
+          </select>
+          {errors.busName && <p className="text-red-500">{errors.busName.message}</p>}
         </div>
 
+        {/* Class Dropdown */}
+        <div className="form-control">
+          <label className="label">
+            <span className="label-text">Class</span>
+          </label>
+          <select
+            className="input input-bordered"
+            {...register("class", { required: "Class is required" })}
+          >
+            <option value="" disabled>Select Class (AC/Non-AC)</option>
+            <option value="AC">AC</option>
+            <option value="Non-AC">Non-AC</option>
+          </select>
+          {errors.class && <p className="text-red-500">{errors.class.message}</p>}
+        </div>
+
+        {/* From and To Dropdowns */}
         <div className="flex items-center gap-3 justify-center">
           <div className="form-control w-full">
             <label className="label">
               <span className="label-text">From</span>
             </label>
             <select
-              {...register("from", { required: "Departure location is required" })}
               className="input input-bordered"
+              {...register("from", { required: "Departure location is required" })}
             >
               <option value="" disabled>Select departure city</option>
               <option value="Chattogram">Chattogram</option>
               <option value="Dhaka">Dhaka</option>
               <option value="Sylhet">Sylhet</option>
-              <option value="cox">Cox'sbazar</option>
+              <option value="cox">Cox's Bazar</option>
             </select>
             {errors.from && <p className="text-red-500">{errors.from.message}</p>}
           </div>
@@ -122,19 +145,20 @@ const AddBusSchedule: React.FC = () => {
               <span className="label-text">To</span>
             </label>
             <select
-              {...register("to", { required: "Destination is required" })}
               className="input input-bordered"
+              {...register("to", { required: "Destination is required" })}
             >
               <option value="" disabled>Select destination city</option>
               <option value="Dhaka">Dhaka</option>
               <option value="Chattogram">Chattogram</option>
-              <option value="cox">Cox'sbazar</option>
+              <option value="cox">Cox's Bazar</option>
               <option value="Sylhet">Sylhet</option>
             </select>
             {errors.to && <p className="text-red-500">{errors.to.message}</p>}
           </div>
         </div>
 
+        {/* Departure and Arrival Time */}
         <div className="flex items-center gap-3 justify-center">
           <div className="form-control w-full">
             <label className="label">
@@ -161,6 +185,7 @@ const AddBusSchedule: React.FC = () => {
           </div>
         </div>
 
+        {/* Seats Available and Price */}
         <div className="flex items-center gap-3 justify-center">
           <div className="form-control w-full">
             <label className="label">
@@ -189,6 +214,7 @@ const AddBusSchedule: React.FC = () => {
           </div>
         </div>
 
+        {/* Date */}
         <div className="form-control">
           <label className="label">
             <span className="label-text">Date</span>
@@ -201,6 +227,7 @@ const AddBusSchedule: React.FC = () => {
           {errors.date && <p className="text-red-500">{errors.date.message}</p>}
         </div>
 
+        {/* Submit Button */}
         <div className="flex items-center justify-center">
           <button
             type="submit"

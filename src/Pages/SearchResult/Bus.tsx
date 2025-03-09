@@ -1,25 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { axiosSecure } from "../../Hook/useAxiouSecure";
-import SearchBarForBus from "../../Components/Banner/SearchbarForFlight";
-import SearchBarForTrain from "../../Components/Banner/SearchbarForTrain";
+
 import BuyTicket from "../../Components/Searchbar/BuyTicket";
+import { useGetBus } from "../../utils/useGetBus";
+import { axiosSecure } from "../../Hook/useAxiouSecure";
 
-const busNames = [
-    "Green Line",
-    "Shyamoli Paribahan",
-    "Ena Transport",
-    "Hanif Enterprise",
-    "Desh Travels",
-    "City Rider"
-];
-
-const busClasses = ["AC", "Non AC", "VIP"];
+const busClasses = ["AC", "Non-AC", "VIP"];
 
 const Bus: React.FC = () => {
     const location = useLocation();
     const queryParams = new URLSearchParams(location.search);
-
+    const { data: buses, isLoading: loading } = useGetBus(); // Fetch bus data
     const from = queryParams.get("from");
     const to = queryParams.get("to");
     const departureTime = queryParams.get("departureTime");
@@ -37,6 +28,9 @@ const Bus: React.FC = () => {
 
     const [showMoreDeparture, setShowMoreDeparture] = useState(false);
     const [showMoreReturn, setShowMoreReturn] = useState(false);
+
+    // Extract unique bus names from the fetched bus data
+    const busNames = Array.from(new Set(buses?.map((bus) => bus.busName))) || [];
 
     useEffect(() => {
         setDepartureData([]);
@@ -100,10 +94,9 @@ const Bus: React.FC = () => {
 
     const renderBusCard = (bus: any) => (
         <div>
-
             <div
                 key={bus.busNumber}
-                className="bg-gradient-to-r font-Poppins from-green-50 to-green-100 shadow-lg rounded-lg p-4 flex flex-col md:flex-row items-center justify-between hover:shadow-2xl "
+                className="bg-gradient-to-r font-Poppins from-green-50 to-green-100 shadow-lg rounded-lg p-4 flex flex-col md:flex-row items-center justify-between hover:shadow-2xl"
             >
                 <div className="space-y-2 mb-5 md:space-y-0 md:space-x-4 flex flex-col md:flex-row gap-20 items-start md:items-center">
                     <div>
@@ -128,7 +121,6 @@ const Bus: React.FC = () => {
                     <div className="text-gray-600 text-sm">
                         <span className="font-semibold">Seats Available:</span> {bus.seatsAvailable}
                         <p>Date: {new Date(bus.date).toLocaleDateString("en-GB", { year: "numeric", month: "long", day: "numeric" })}</p>
-
                     </div>
                 </div>
                 <div className="mt-4 md:mt-0 text-right">
@@ -147,7 +139,7 @@ const Bus: React.FC = () => {
                         })}
                     </p>
                     <p className="text-green-950 font-semibold text-xl mt-2 mb-3">Price: ${bus.price}</p>
-                    <Link to={`/bus/${bus._id}`} className="w-full  bg-green-950 text-white font-semibold mt-5 p-2 rounded-lg hover:bg-green-700 ">
+                    <Link to={`/bus/${bus._id}`} className="w-full bg-green-950 text-white font-semibold mt-5 p-2 rounded-lg hover:bg-green-700">
                         Book Now
                     </Link>
                 </div>
@@ -160,14 +152,14 @@ const Bus: React.FC = () => {
 
     return (
         <div className="mt-3 w-[95%] mx-auto">
-            <BuyTicket></BuyTicket>
+            <BuyTicket />
             <div className="grid grid-cols-12 gap-6 px-1">
-
-                <div className="col-span-12 md:col-span-3 lg:col-span-2 shadow-lg p-4  bg-white space-y-8">
-                    {/* Filters */}
+                {/* Filters Section */}
+                <div className="col-span-12 md:col-span-3 lg:col-span-2 shadow-lg p-4 bg-white space-y-8">
                     <h1 className="font-bold text-xl text-blue-950">Filter By: </h1>
                     <hr />
                     <div className="space-y-4">
+                        {/* Bus Name Filter */}
                         <div className="flex flex-col space-y-2">
                             <p className="font-semibold">BUS NAME:</p>
                             {busNames.map((name) => (
@@ -196,6 +188,7 @@ const Bus: React.FC = () => {
                             </label>
                         </div>
                         <hr />
+                        {/* Bus Class Filter */}
                         <div className="flex flex-col space-y-2">
                             <p className="font-semibold">BUS CLASS:</p>
                             {busClasses.map((className) => (
@@ -226,11 +219,11 @@ const Bus: React.FC = () => {
                     </div>
                 </div>
 
+                {/* Bus Schedule Section */}
                 <div className="col-span-12 md:col-span-9 lg:col-span-10 py-5">
                     {/* Departure Data */}
-
                     <div className="mb-10">
-                        <h3 className="text-xl font-Montserrat font-semibold mb-6">Departure Bus Schedule</h3>
+                        <h3 className="text-xl font-Montserrat font-semibold mb-6">Next Available Departure Bus Schedule</h3>
                         {isLoading ? (
                             <div>Loading...</div>
                         ) : filteredDepartureData.length > 0 ? (
@@ -251,7 +244,7 @@ const Bus: React.FC = () => {
                     {/* Return Data */}
                     {returnDate && (
                         <div>
-                            <h3 className="text-xl font-Montserrat font-semibold mb-6 pt-5">Return Bus Schedule</h3>
+                            <h3 className="text-xl font-Montserrat font-semibold mb-6 pt-5">Next Available Return Bus Schedule</h3>
                             {isReturnLoading ? (
                                 <div>Loading...</div>
                             ) : filteredReturnData.length > 0 ? (
